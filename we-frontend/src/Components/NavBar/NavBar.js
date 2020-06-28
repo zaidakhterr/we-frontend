@@ -3,7 +3,7 @@ import Logo from '../Logo/Logo.js';
 import SearchBar from '../SearchBar/SearchBar.js';
 import Profile from '../Profile/Profile.js';
 import SignOut from '../SignOut/SignOut.js';
-import './NavBar.css'
+import './NavBar.scss'
 
 class NavBar extends Component {
 	render() {

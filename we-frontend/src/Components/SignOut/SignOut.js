@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import { Button } from 'antd';
-import './SignOut.css';
+import './SignOut.scss';
 
 class SignOut extends Component {
 	state = {

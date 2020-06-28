@@ -15,11 +15,9 @@ const SearchBar = () => {
 	  	/>
 	);
 		return (
-			<div >
+			<div>
 				<Search
-					type="warning"
-					className="size"
-					maxLength="240"
+					type="primary"
 			      	placeholder="Search Question"
 			      	enterButton={suffix}
 			      	onSearch={value => console.log(value)}

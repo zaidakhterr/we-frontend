@@ -1,8 +1,7 @@
-.button{
+.button {
 	font-family: sans-serif;
 	font-size: 1rem;
-}
-
-.button:hover{	
-	color: #ed9327;
+	&:hover {
+		color: #ed9327;
+	}
 }
