@@ -11,10 +11,6 @@ body {
   overflow-x: hidden;
 }
 
-button {
-  text-transform: uppercase !important;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
