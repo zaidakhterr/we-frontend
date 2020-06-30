@@ -19,7 +19,7 @@ const Loader = () => {
 };
 
 const App = () => {
-  const auth = useAuth();
+  const { auth } = useAuth();
 
   return (
     <div className="app">
