@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import { Navbar } from "./Components/UnAuth";
+import Navbar from "./Components/Layout/Navbar";
 import Home from "./Pages/Home";
 import NotFound from "./Pages/404";
 import SignIn from "./Pages/SignIn";
