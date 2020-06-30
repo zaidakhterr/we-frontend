@@ -3,19 +3,14 @@ import "./App.less";
 import React from "react";
 
 import useAuth from "./Hooks/useAuth";
-import { Row, Spin } from "antd";
+import { Result } from "antd";
+import { Loading3QuartersOutlined } from "@ant-design/icons";
 
 const AuthApp = React.lazy(() => import("./AuthApp"));
 const UnAuthApp = React.lazy(() => import("./UnAuthApp"));
 
 const Loader = () => {
-  return (
-    <>
-      <Row className="loader-container" align="middle" justify="center">
-        <Spin size="large" />
-      </Row>
-    </>
-  );
+  return <Result icon={<Loading3QuartersOutlined />} title="Loading..." />;
 };
 
 const App = () => {
