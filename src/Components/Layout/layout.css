@@ -1,0 +1,31 @@
+.nav-container{
+    border-radius:4px;
+}
+
+.menu{
+   margin-right: 1024px;
+}
+
+@media screen and (max-width: 767px) {
+    .menu{
+        margin-right: 320px;
+    }
+}
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;  
+    background-color: #eee;
+    font-size: 12px; 
+    padding: 32px 16px;
+    max-height: 2rem; 
+}
+
+.container{
+    margin: 0 2rem;
+    max-width: 1550px;
+    display: flex;
+    justify-content:space-between ;
+    align-items: center;
+}
