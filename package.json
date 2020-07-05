@@ -8,7 +8,6 @@
     "antd": "^4.3.5",
     "axios": "^0.19.2",
     "craco-less": "^1.17.0",
-    "mdbreact": "^4.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-responsive": "^8.1.0",

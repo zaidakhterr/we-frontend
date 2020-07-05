@@ -5,37 +5,19 @@ import { Link } from "react-router-dom";
 
 import img from '../../Assets/logo-desktop.svg';
 
-import { Button, Tooltip, Menu } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+import Footer from './Footer';
 
 const NavbarDesktop = () => {
   return <div>  
-  <Menu mode="horizontal">
-    <Menu.Item className="menu">
-      <img src={img} alt="Logo" width="200px" height="20px"/>
-    </Menu.Item>
-      <Menu.Item>  
-        <Tooltip title="Search">
-          <Button type="primary" shape="circle" icon={<SearchOutlined />}/>
-        </Tooltip>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to="/sign-in">
-          <Button>Sign In</Button>
-        </Link>
-      </Menu.Item>
-      <Menu.Item> 
-        <Link to="/sign-up"> 
-          <Button type="primary">Sign Up</Button>
-        </Link>
-      </Menu.Item> 
-  </Menu>
-  <footer className="footer">
-    <div className="container">
-      <img src={img} alt="Logo" height="20px"/>
-      &copy; NEDians' Forum, {new Date().getFullYear()}
-    </div>
-  </footer>; 
+  <nav className="zone sticky">
+    <ul className="main-nav">
+      <li><img src={img} alt="Logo" width="200px" height="20px"/></li>
+      <li className="push"><Link to="/sign-in"><Button>Sign In</Button></Link></li>
+      <li><Link to="/sign-up"><Button type="primary">Sign Up</Button></Link></li>
+    </ul>
+  </nav>
+  <Footer />
 </div>
 };
 
