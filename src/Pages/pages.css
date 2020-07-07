@@ -1,0 +1,21 @@
+.ask-question {
+  padding: 10px;
+}
+
+.ask-question .container {
+  display: flex;
+  flex-direction: column;
+}
+
+.ask-question h3 {
+  margin-bottom: 0;
+}
+
+.ask-question .input-group {
+  margin: 16px 0;
+}
+
+.description-error {
+  transition: all 300ms;
+  color: #ff4d4f;
+}
