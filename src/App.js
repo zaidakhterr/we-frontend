@@ -20,10 +20,12 @@ const App = () => {
   return (
     <div className="app">
       <React.Suspense fallback={<Loader />}>
-        {auth && auth.status ? <AuthApp /> : <UnAuthApp />}
+      {auth && auth.status ? <AuthApp /> : <UnAuthApp />}
       </React.Suspense>
     </div>
   );
 };
 
 export default App;
+
+

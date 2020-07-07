@@ -6,6 +6,13 @@ import { Form, Input, Button } from 'antd';
 
 const SignUp = () => {
 
+  const tailLayout = {
+    wrapperCol: {
+      offset: 8,
+      span: 16,
+    }
+  }
+
   const [form] = Form.useForm();
 
   const onFinish = values => {
@@ -13,24 +20,18 @@ const SignUp = () => {
   };
 
   return (
-    <div className="container">
+    <div className="form__container">
       <div className="sign-up-page">
-        <Form form={form} name='register' onFinish={onFinish}>
+        <Form labelCol={{ span: 24 }} form={form} name='sign-up' onFinish={onFinish} /*{...layout}*/>
 
-          <div>
             <Form.Item 
-              label="Username"
-              name="username"
+              label="Fullname"
+              name="Fullname"
               rules={[{ required: true, message: 'Please input your username!' }]}
             > 
+              <Input size="large"/>
             </Form.Item >
-          </div>
 
-          <div className="formInput">
-            <Form.Item><Input/></Form.Item>
-          </div>
-
-          <div>
             <Form.Item
               name="email"
               label="E-mail"
@@ -44,14 +45,9 @@ const SignUp = () => {
                   message: 'Please input your E-mail!',
               }]}
             >
+              <Input size="large"/>
             </Form.Item>
-          </div>
 
-          <div className="formInput">
-              <Form.Item><Input/></Form.Item>
-          </div>
-
-          <div>    
             <Form.Item
               name="password"
               label="Password"
@@ -63,14 +59,9 @@ const SignUp = () => {
               ]}
               hasFeedback
             >
-            </Form.Item>
-          </div> 
-
-          <div className="formInput">
-            <Form.Item><Input.Password/></Form.Item>
-          </div>
+              <Input.Password size="large"/>
+            </Form.Item> 
             
-          <div>
             <Form.Item
               name="confirm"
               label="Confirm Password"
@@ -91,20 +82,16 @@ const SignUp = () => {
                 }),
               ]}
             >
+              <Input.Password size="large"/>
             </Form.Item>
-          </div>
 
-          <div className="formInput">
-            <Form.Item><Input.Password/></Form.Item>
-          </div>
-
-          <div className="button-signup">
-            <Form.Item >
-              <Button type="primary" htmlType="submit">
-                SignUp
-              </Button>
-            </Form.Item>
-          </div>
+            <div className="form__signup__button">
+              <Form.Item {...tailLayout}>
+                <Button type="primary" htmlType="submit" size="large">
+                  SignUp
+                </Button>
+              </Form.Item>
+            </div>
 
         </Form>  
       </div>

@@ -1,24 +1,18 @@
-.container {
+.form__container {
     width: 100vw;
-    height: 95vh;
+    height: 93vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-.formInput {
-    margin-top: -23px; 
+.sign-up-page {
+    padding: 32px;
 }
 
-.button-signup {
-    margin-top: 44px;
+.sign-in-page {
+    padding: 22px;
 }
 
-@media screen and (max-width: 575px) {
-    .formInput {
-        margin-top: -62px; 
-    }
-    .button-signup {
-        margin-top: 35px;
-    }
+.form__signup__button {
+    padding-top: 28px;
 }
