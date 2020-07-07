@@ -72,15 +72,23 @@
 }
 
 .editable pre {
-  padding: 10px;
   background-color: #eee;
   white-space: pre-wrap;
+  margin: 0;
 }
 
-.editable :not(pre) > code {
+.editable code {
   font-family: monospace;
   background-color: #eee;
   padding: 3px 5px;
+}
+
+.editable code.code-block {
+  display: block;
+  border-radius: 0;
+}
+
+.editable :not(pre) > code {
   border-radius: 3px;
 }
 

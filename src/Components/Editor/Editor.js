@@ -83,6 +83,12 @@ const Element = ({ attributes, children, element }) => {
       return <li {...attributes}>{children}</li>;
     case "numbered-list":
       return <ol {...attributes}>{children}</ol>;
+    case "code-block":
+      return (
+        <code className="code-block" {...attributes}>
+          {children}
+        </code>
+      );
     default:
       return <p {...attributes}>{children}</p>;
   }
@@ -213,6 +219,7 @@ const Toolbar = () => {
           format="bulleted-list"
           icon={BulletedList}
         />
+        <BlockButton title="Code Block" format="code-block" icon={Code} />
       </div>
     </>
   );
