@@ -4,7 +4,7 @@ import React, { useMemo, useCallback } from "react";
 import { Editable, withReact, useSlate, Slate } from "slate-react";
 import { Editor as SlateEditor, Transforms, createEditor } from "slate";
 import PropTypes from "prop-types";
-import { Row, Col } from "antd";
+import { Tooltip } from "antd";
 import Icon from "@ant-design/icons";
 import isHotkey from "is-hotkey";
 
@@ -108,42 +108,51 @@ const Leaf = ({ attributes, children, leaf }) => {
   return <span {...attributes}>{children}</span>;
 };
 
-const ToolbarButton = ({ active, icon, onClick }) => {
+const ToolbarButton = ({ active, icon, title, onMouseDown }) => {
   return (
-    <span
-      className="toolbar-btn"
-      style={{ color: active ? "#ed9327" : "#aaa" }}
-      onMouseDown={onClick}
+    <Tooltip
+      arrowPointAtCenter
+      placement="topLeft"
+      color="#2b3b3b"
+      title={title}
     >
-      <Icon className="toolbar-icon" component={icon} />
-    </span>
+      <span
+        className="toolbar-btn"
+        style={{ color: active ? "#ed9327" : "#aaa" }}
+        onMouseDown={onMouseDown}
+      >
+        <Icon className="toolbar-icon" component={icon} />
+      </span>
+    </Tooltip>
   );
 };
 
-const BlockButton = ({ format, icon }) => {
+const BlockButton = ({ format, icon, title }) => {
   const editor = useSlate();
   return (
     <ToolbarButton
       active={isBlockActive(editor, format)}
-      onClick={event => {
+      onMouseDown={event => {
         event.preventDefault();
         toggleBlock(editor, format);
       }}
       icon={icon}
+      title={title}
     />
   );
 };
 
-const MarkButton = ({ format, icon }) => {
+const MarkButton = ({ format, icon, title }) => {
   const editor = useSlate();
   return (
     <ToolbarButton
       active={isMarkActive(editor, format)}
-      onClick={event => {
+      onMouseDown={event => {
         event.preventDefault();
         toggleMark(editor, format);
       }}
       icon={icon}
+      title={title}
     />
   );
 };
@@ -152,15 +161,55 @@ const Toolbar = () => {
   return (
     <>
       <div className="toolbar">
-        <MarkButton format="bold" icon={Bold} />
-        <MarkButton format="italic" icon={Italic} />
-        <MarkButton format="underline" icon={Underline} />
-        <MarkButton format="code" icon={Code} />
-        <BlockButton format="heading-one" icon={Heading1} />
-        <BlockButton format="heading-two" icon={Heading2} />
-        <BlockButton format="block-quote" icon={Quote} />
-        <BlockButton format="numbered-list" icon={NumberedList} />
-        <BlockButton format="bulleted-list" icon={BulletedList} />
+        <MarkButton
+          title={
+            <>
+              Bold <code>Ctrl</code> <code>B</code>
+            </>
+          }
+          format="bold"
+          icon={Bold}
+        />
+        <MarkButton
+          title={
+            <>
+              Italic <code>Ctrl</code> <code>I</code>
+            </>
+          }
+          format="italic"
+          icon={Italic}
+        />
+        <MarkButton
+          title={
+            <>
+              Underline <code>Ctrl</code> <code>U</code>
+            </>
+          }
+          format="underline"
+          icon={Underline}
+        />
+        <MarkButton
+          title={
+            <>
+              Code <code>Ctrl</code> <code>`</code>
+            </>
+          }
+          format="code"
+          icon={Code}
+        />
+        <BlockButton title="Heading 1" format="heading-one" icon={Heading1} />
+        <BlockButton title="Heading 2" format="heading-two" icon={Heading2} />
+        <BlockButton title="Block Quote" format="block-quote" icon={Quote} />
+        <BlockButton
+          title="Numbered List"
+          format="numbered-list"
+          icon={NumberedList}
+        />
+        <BlockButton
+          title="Bulleted List"
+          format="bulleted-list"
+          icon={BulletedList}
+        />
       </div>
     </>
   );
