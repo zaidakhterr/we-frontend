@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+*::selection {
+  background-color: #1890ff !important;
+}
+
 body {
   height: 100%;
   min-height: 100vh;
@@ -15,4 +19,34 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+pre {
+  padding: 10px;
+  background-color: #eee;
+  white-space: pre-wrap;
+}
+
+:not(pre) > code {
+  font-family: monospace;
+  background-color: #eee;
+  padding: 3px 5px;
+  border-radius: 3px;
+}
+
+blockquote {
+  border-left: 2px solid #ddd;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 10px;
+  color: #ccc;
+  font-style: italic;
+}
+
+ul {
+  list-style: circle;
+}
+
+ol {
+  list-style: decimal;
 }

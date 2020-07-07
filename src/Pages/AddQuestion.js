@@ -1,10 +1,6 @@
-// Import React dependencies.
-import React, { useEffect, useMemo, useState } from "react";
-// Import the Slate editor factory.
-import { createEditor } from "slate";
+import React, { useState } from "react";
 
-// Import the Slate components and React plugin.
-import { Slate, Editable, withReact } from "slate-react";
+import Editor from "../Components/Editor/Editor";
 
 const AddQuestion = () => {
   const [value, setValue] = useState([
@@ -14,21 +10,16 @@ const AddQuestion = () => {
     },
   ]);
 
-  const editor = useMemo(() => withReact(createEditor()), []);
-
   return (
-    <div className="add-question" style={{ backgroundColor: "#f5f5f5" }}>
-      <h1>Add Question</h1>
-      <Slate
-        editor={editor}
-        value={value}
-        onChange={newValue => setValue(newValue)}
-      >
-        <Editable
-          style={{ border: "1px solid #d9d9d9", padding: 10 }}
-          className="add-question-field"
+    <div className="add-question" style={{ border: "solid 2px red" }}>
+      <div className="container">
+        <h1>Add Question</h1>
+        <Editor
+          value={value}
+          setValue={setValue}
+          placeholder={"Ask your Question..."}
         />
-      </Slate>
+      </div>
     </div>
   );
 };
