@@ -3,6 +3,22 @@
   border: solid 1px #d9d9d9;
   border-radius: 3px;
   color: #000;
+  transition: all 300ms;
+  margin: 10px 0;
+}
+
+.editor:hover {
+  border-color: #fab350;
+}
+
+.editor:focus-within {
+  border-color: #fab350;
+  box-shadow: 0 0 0 2px rgba(237, 147, 39, 0.2);
+}
+
+.editor:hover .toolbar,
+.editor:focus-within .toolbar {
+  border-color: #fab350;
 }
 
 .toolbar {
@@ -10,9 +26,11 @@
   padding: 10px;
   background-color: #fff;
   border-bottom: solid 1px #d9d9d9;
+  border-radius: 3px 3px 0px 0px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  transition: all 300ms;
 }
 
 .toolbar-btn {
@@ -32,8 +50,11 @@
 }
 
 .toolbar-icon {
-  width: 70%;
-  height: 70%;
+  width: 75%;
+  height: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .toolbar-icon svg {
@@ -42,6 +63,8 @@
 }
 
 .editable {
+  border-radius: 0px 0px 3px 3px;
+
   width: 100%;
   padding: 10px;
   background-color: #fff;

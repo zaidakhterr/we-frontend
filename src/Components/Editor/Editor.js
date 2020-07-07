@@ -118,7 +118,10 @@ const ToolbarButton = ({ active, icon, title, onMouseDown }) => {
     >
       <span
         className="toolbar-btn"
-        style={{ color: active ? "#ed9327" : "#aaa" }}
+        style={{
+          color: active ? "#fff" : "#2b3b3b",
+          backgroundColor: active ? "#ed9327" : "#fff",
+        }}
         onMouseDown={onMouseDown}
       >
         <Icon className="toolbar-icon" component={icon} />
@@ -234,7 +237,6 @@ const Editor = ({ value, setValue }) => {
             renderElement={renderElement}
             renderLeaf={renderLeaf}
             spellCheck
-            autoFocus
             onKeyDown={event => {
               for (const hotkey in HOTKEYS) {
                 if (isHotkey(hotkey, event)) {
