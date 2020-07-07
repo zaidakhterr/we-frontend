@@ -17,6 +17,7 @@ import { ReactComponent as NumberedList } from "./../../Assets/Icons/format_list
 import { ReactComponent as Heading1 } from "./../../Assets/Icons/looks_one.svg";
 import { ReactComponent as Heading2 } from "./../../Assets/Icons/looks_two.svg";
 import { ReactComponent as Quote } from "./../../Assets/Icons/format_quote.svg";
+import { ReactComponent as Link } from "./../../Assets/Icons/link.svg";
 
 const HOTKEYS = {
   "mod+b": "bold",
@@ -243,7 +244,7 @@ const Editor = ({ value, setValue }) => {
             className="editable"
             renderElement={renderElement}
             renderLeaf={renderLeaf}
-            spellCheck
+            spellCheck={false}
             onKeyDown={event => {
               for (const hotkey in HOTKEYS) {
                 if (isHotkey(hotkey, event)) {

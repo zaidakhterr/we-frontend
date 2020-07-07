@@ -14,7 +14,7 @@ const AddQuestion = () => {
   return (
     <div className="ask-question" style={{ padding: 10 }}>
       <div className="container">
-        <h1>Ask Question</h1>
+        <h1>Ask a question</h1>
         <Input />
         <Editor value={value} setValue={setValue} />
       </div>
