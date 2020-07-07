@@ -6,19 +6,15 @@ const AddQuestion = () => {
   const [value, setValue] = useState([
     {
       type: "paragraph",
-      children: [{ text: "A line of text in a paragraph." }],
+      children: [{ text: "" }],
     },
   ]);
 
   return (
-    <div className="add-question" style={{ border: "solid 2px red" }}>
+    <div className="add-question" style={{ padding: 10 }}>
       <div className="container">
         <h1>Add Question</h1>
-        <Editor
-          value={value}
-          setValue={setValue}
-          placeholder={"Ask your Question..."}
-        />
+        <Editor value={value} setValue={setValue} />
       </div>
     </div>
   );

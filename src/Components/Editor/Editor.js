@@ -4,7 +4,7 @@ import React, { useMemo, useCallback } from "react";
 import { Editable, withReact, useSlate, Slate } from "slate-react";
 import { Editor as SlateEditor, Transforms, createEditor } from "slate";
 import PropTypes from "prop-types";
-import { Button, Row, Col } from "antd";
+import { Row, Col } from "antd";
 import Icon from "@ant-design/icons";
 import isHotkey from "is-hotkey";
 
@@ -108,16 +108,28 @@ const Leaf = ({ attributes, children, leaf }) => {
   return <span {...attributes}>{children}</span>;
 };
 
+const ToolbarButton = ({ active, icon, onClick }) => {
+  return (
+    <span
+      className="toolbar-btn"
+      style={{ color: active ? "#ed9327" : "#aaa" }}
+      onMouseDown={onClick}
+    >
+      <Icon className="toolbar-icon" component={icon} />
+    </span>
+  );
+};
+
 const BlockButton = ({ format, icon }) => {
   const editor = useSlate();
   return (
-    <Button
-      type={isBlockActive(editor, format) ? "link" : "text"}
+    <ToolbarButton
+      active={isBlockActive(editor, format)}
       onClick={event => {
         event.preventDefault();
         toggleBlock(editor, format);
       }}
-      icon={<Icon component={icon} />}
+      icon={icon}
     />
   );
 };
@@ -125,13 +137,13 @@ const BlockButton = ({ format, icon }) => {
 const MarkButton = ({ format, icon }) => {
   const editor = useSlate();
   return (
-    <Button
-      type={isMarkActive(editor, format) ? "link" : "text"}
+    <ToolbarButton
+      active={isMarkActive(editor, format)}
       onClick={event => {
         event.preventDefault();
         toggleMark(editor, format);
       }}
-      icon={<Icon component={icon} />}
+      icon={icon}
     />
   );
 };
@@ -139,48 +151,22 @@ const MarkButton = ({ format, icon }) => {
 const Toolbar = () => {
   return (
     <>
-      <Row gutter={8}>
-        <Col>
-          <MarkButton format="bold" icon={Bold} />
-        </Col>
-
-        <Col>
-          <MarkButton format="italic" icon={Italic} />
-        </Col>
-
-        <Col>
-          <MarkButton format="underline" icon={Underline} />
-        </Col>
-
-        <Col>
-          <MarkButton format="code" icon={Code} />
-        </Col>
-
-        <Col>
-          <BlockButton format="heading-one" icon={Heading1} />
-        </Col>
-
-        <Col>
-          <BlockButton format="heading-two" icon={Heading2} />
-        </Col>
-
-        <Col>
-          <BlockButton format="block-quote" icon={Quote} />
-        </Col>
-
-        <Col>
-          <BlockButton format="numbered-list" icon={NumberedList} />
-        </Col>
-
-        <Col>
-          <BlockButton format="bulleted-list" icon={BulletedList} />
-        </Col>
-      </Row>
+      <div className="toolbar">
+        <MarkButton format="bold" icon={Bold} />
+        <MarkButton format="italic" icon={Italic} />
+        <MarkButton format="underline" icon={Underline} />
+        <MarkButton format="code" icon={Code} />
+        <BlockButton format="heading-one" icon={Heading1} />
+        <BlockButton format="heading-two" icon={Heading2} />
+        <BlockButton format="block-quote" icon={Quote} />
+        <BlockButton format="numbered-list" icon={NumberedList} />
+        <BlockButton format="bulleted-list" icon={BulletedList} />
+      </div>
     </>
   );
 };
 
-const Editor = ({ placeholder, value, setValue }) => {
+const Editor = ({ value, setValue }) => {
   const renderElement = useCallback(props => <Element {...props} />, []);
   const renderLeaf = useCallback(props => <Leaf {...props} />, []);
   const editor = useMemo(() => withReact(createEditor()), []);
@@ -192,24 +178,25 @@ const Editor = ({ placeholder, value, setValue }) => {
         value={value}
         onChange={newValue => setValue(newValue)}
       >
-        <Toolbar />
-        <Editable
-          className="editor"
-          renderElement={renderElement}
-          renderLeaf={renderLeaf}
-          placeholder={placeholder}
-          spellCheck
-          autoFocus
-          onKeyDown={event => {
-            for (const hotkey in HOTKEYS) {
-              if (isHotkey(hotkey, event)) {
-                event.preventDefault();
-                const mark = HOTKEYS[hotkey];
-                toggleMark(editor, mark);
+        <div className="editor">
+          <Toolbar />
+          <Editable
+            className="editable"
+            renderElement={renderElement}
+            renderLeaf={renderLeaf}
+            spellCheck
+            autoFocus
+            onKeyDown={event => {
+              for (const hotkey in HOTKEYS) {
+                if (isHotkey(hotkey, event)) {
+                  event.preventDefault();
+                  const mark = HOTKEYS[hotkey];
+                  toggleMark(editor, mark);
+                }
               }
-            }
-          }}
-        />
+            }}
+          />
+        </div>
       </Slate>
     </>
   );
@@ -218,7 +205,6 @@ const Editor = ({ placeholder, value, setValue }) => {
 Editor.propTypes = {
   value: PropTypes.array.isRequired,
   setValue: PropTypes.func.isRequired,
-  placeholder: PropTypes.string.isRequired,
 };
 
 export default Editor;
