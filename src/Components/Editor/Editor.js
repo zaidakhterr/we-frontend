@@ -238,7 +238,7 @@ const Editor = ({ value, setValue, error }) => {
         value={value}
         onChange={newValue => setValue(newValue)}
       >
-        <div className="editor" style={{ borderColor: error ? "red" : "" }}>
+        <div className="editor" style={{ borderColor: error ? "#ff4d4f" : "" }}>
           <Toolbar />
           <Editable
             className="editable"

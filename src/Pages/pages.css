@@ -16,6 +16,5 @@
 }
 
 .description-error {
-  transition: all 300ms;
   color: #ff4d4f;
 }
