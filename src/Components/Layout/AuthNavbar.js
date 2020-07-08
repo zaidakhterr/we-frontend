@@ -1,26 +1,25 @@
 import './layout.css';
-import Footer from './Footer';
+import img from '../../Assets/logo-mobile.svg';
 
 import React from "react";
 import { Link } from "react-router-dom";
 
-import img from '../../Assets/logo-mobile.svg';
-import { Button } from 'antd';
-import { MenuOutlined } from '@ant-design/icons';
-  
+import { Row, Col, Menu, Dropdown, Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+
+const menu = (
+    <Menu>
+    <Menu.Item><Link to="/profile">Profile</Link></Menu.Item>
+    <Menu.Item>Sign Out</Menu.Item>
+  </Menu>
+);
+
 const NavbarMobile = () => {
-  return <div>  
-<nav className="zone sticky">
-    <ul className="main-nav">
-        <li><img src={img} alt="Logo" width="90px" height="20px"/></li>
-        <li className="push"><Button icon={<MenuOutlined />} className="dropdown">
-            <div className="dropdown-content">
-            <Link to="/profile">Profile</Link>
-            <li>Sign Out</li>
-        </div></Button></li>
-    </ul>
-</nav>
-<Footer />
+  return <div className="nav-container">  
+  <Row type="flex" justify="space-between">
+    <Col><img src={img} alt="Logo" width="90px" height="20px"/></Col>
+    <Col><Dropdown overlay={menu}><Avatar style={{ backgroundColor: '#ed9327' }} icon={<UserOutlined />} /></Dropdown></Col>
+  </Row>
 </div>
 };
 

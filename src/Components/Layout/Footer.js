@@ -1,8 +1,7 @@
 import './layout.css';
+import img from '../../Assets/logo-desktop.svg';
 
 import React from "react";
-
-import img from '../../Assets/logo-desktop.svg';
 
 const Footer = () => {
   return <div>  

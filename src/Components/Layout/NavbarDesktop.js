@@ -1,23 +1,20 @@
 import './layout.css';
+import img from '../../Assets/logo-desktop.svg';
 
 import React from "react";
 import { Link } from "react-router-dom";
 
-import img from '../../Assets/logo-desktop.svg';
-
-import { Button } from 'antd';
-import Footer from './Footer';
+import { Button, Row, Col } from 'antd';
 
 const NavbarDesktop = () => {
-  return <div>  
-  <nav className="zone sticky">
-    <ul className="main-nav">
-      <li><img src={img} alt="Logo" width="200px" height="20px"/></li>
-      <li className="push"><Link to="/sign-in"><Button>Sign In</Button></Link></li>
-      <li><Link to="/sign-up"><Button type="primary">Sign Up</Button></Link></li>
-    </ul>
-  </nav>
-  <Footer />
+  return <div className="nav-container">  
+    <Row type="flex" justify="space-between">
+      <Col><img src={img} alt="Logo" width="200px"/></Col>
+      <Row gutter={16}>
+        <Col><Link to="/sign-in"><Button>Sign In</Button></Link></Col>
+        <Col><Link to="/sign-up"><Button type="primary">Sign Up</Button></Link></Col>
+      </Row>
+    </Row>
 </div>
 };
 
