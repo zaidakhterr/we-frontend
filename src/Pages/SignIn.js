@@ -6,7 +6,6 @@ import { Form, Input, Button, Checkbox } from 'antd';
 
 
 const SignIn = () => {
-
   const tailLayout = {
     wrapperCol: {
       offset: 8,

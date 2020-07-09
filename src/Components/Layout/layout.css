@@ -1,0 +1,20 @@
+.nav-container{
+  padding: 30px;
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;   
+    background-color: #eee;
+    padding: 64px 16px;
+}
+
+.container{
+    max-width: 1024px;
+    font-size: 12px;
+    margin: 0 auto; 
+    display: flex;
+    justify-content:space-between ;           
+}
