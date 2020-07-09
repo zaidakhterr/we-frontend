@@ -4,6 +4,7 @@ import Footer from './Components/Layout/Footer';
 import React from "react";
 
 import useAuth from "./Hooks/useAuth";
+
 import { Result } from "antd";
 import { Loading3QuartersOutlined } from "@ant-design/icons";
 
@@ -20,7 +21,7 @@ const App = () => {
   return (
     <div className="app">
       <React.Suspense fallback={<Loader />}>
-        {auth && auth.status ? <AuthApp /> : <UnAuthApp />}
+      {auth && auth.status ? <AuthApp /> : <UnAuthApp />}
       </React.Suspense>
       <Footer />
     </div>
@@ -28,3 +29,5 @@ const App = () => {
 }; 
 
 export default App;
+
+
