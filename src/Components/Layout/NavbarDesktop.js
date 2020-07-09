@@ -1,21 +1,37 @@
-import './layout.css';
-import img from '../../Assets/logo-desktop.svg';
+import "./layout.css";
 
 import React from "react";
 import { Link } from "react-router-dom";
+import { Button, Row, Col } from "antd";
 
-import { Button, Row, Col } from 'antd';
+import img from "../../Assets/logo-desktop.svg";
 
 const NavbarDesktop = () => {
-  return <div className="nav-container">  
-    <Row type="flex" justify="space-between">
-      <Col><img src={img} alt="Logo" width="200px"/></Col>
-      <Row gutter={16}>
-        <Col><Link to="/sign-in"><Button>Sign In</Button></Link></Col>
-        <Col><Link to="/sign-up"><Button type="primary">Sign Up</Button></Link></Col>
-      </Row>
-    </Row>
-</div>
+  return (
+    <header className="header">
+      <div className="container">
+        <Row type="flex" justify="space-between" align="middle">
+          <Col>
+            <Link to="/">
+              <img src={img} alt="Logo" height="25px" />
+            </Link>
+          </Col>
+          <Row gutter={16}>
+            <Col>
+              <Link to="/sign-in">
+                <Button>Sign In</Button>
+              </Link>
+            </Col>
+            <Col>
+              <Link to="/sign-up">
+                <Button type="primary">Sign Up</Button>
+              </Link>
+            </Col>
+          </Row>
+        </Row>
+      </div>
+    </header>
+  );
 };
 
 export default NavbarDesktop;

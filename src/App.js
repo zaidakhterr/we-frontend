@@ -1,5 +1,5 @@
 import "./App.less";
-import Footer from './Components/Layout/Footer';
+import Footer from "./Components/Layout/Footer";
 
 import React from "react";
 
@@ -16,18 +16,17 @@ const Loader = () => {
 };
 
 const App = () => {
-  const { auth } = useAuth();
+  // const { auth } = useAuth();
+  const auth = { status: true };
 
   return (
     <div className="app">
       <React.Suspense fallback={<Loader />}>
-      {auth && auth.status ? <AuthApp /> : <UnAuthApp />}
+        {auth && auth.status ? <AuthApp /> : <UnAuthApp />}
       </React.Suspense>
       <Footer />
     </div>
   );
-}; 
+};
 
 export default App;
-
-
