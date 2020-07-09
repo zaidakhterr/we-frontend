@@ -1,4 +1,4 @@
-import "./pages.css";
+import "./Pages.css";
 
 import React, { useState, useEffect, useCallback } from "react";
 import { Input, Typography, Button, Form, Tag } from "antd";
