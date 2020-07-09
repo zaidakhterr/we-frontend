@@ -6,21 +6,18 @@ import { Row, Col } from "antd";
 
 const Footer = () => {
   return (
-    <div>
-      <footer className="footer">
-        <div className="container">
-          <Row justify="space-between" align="middle">
-            <Col>
-              <img src={img} alt="Logo" height="25px" />
-            </Col>
-            <Col>
-              <div>&copy; NEDians' Forum, {new Date().getFullYear()}</div>
-            </Col>
-          </Row>
-        </div>
-      </footer>
-      ;
-    </div>
+    <footer className="footer">
+      <div className="container">
+        <Row justify="space-between" align="middle">
+          <Col>
+            <img src={img} alt="Logo" height="20px" />
+          </Col>
+          <Col>
+            <div>&copy; NEDians' Forum, {new Date().getFullYear()}</div>
+          </Col>
+        </Row>
+      </div>
+    </footer>
   );
 };
 

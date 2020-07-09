@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html {
+  width: 100vw;
+}
+
 body {
   height: 100%;
   min-height: 100vh;

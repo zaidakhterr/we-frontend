@@ -29,11 +29,11 @@ const AuthNavbar = () => {
         <Row type="flex" justify="space-between" align="middle">
           <Col>
             <Link to="/">
-              <img
-                src={isMobile ? img : img_desktop}
-                alt="Logo"
-                height="25px"
-              />
+              {isMobile ? (
+                <img src={img} alt="Logo" height="25px" />
+              ) : (
+                <img src={img_desktop} alt="Logo" height="20px" />
+              )}
             </Link>
           </Col>
           <Col>

@@ -13,7 +13,7 @@ const NavbarDesktop = () => {
         <Row type="flex" justify="space-between" align="middle">
           <Col>
             <Link to="/">
-              <img src={img} alt="Logo" height="25px" />
+              <img src={img} alt="Logo" height="20px" />
             </Link>
           </Col>
           <Row gutter={16}>
