@@ -9,6 +9,7 @@ const useAuth = () => {
 
   useEffect(() => {
     window.localStorage.setItem("nf-auth", auth);
+    console.log(auth);
 
     if (auth && auth.status) {
       const { token } = auth;

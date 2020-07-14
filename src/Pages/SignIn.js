@@ -2,10 +2,15 @@ import "./Pages.css";
 
 import React from "react";
 
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, notification } from "antd";
 
+import useAuth from "../Hooks/useAuth";
+
+import instance from "../api";
 
 const SignIn = () => {
+  const {setAuth} = useAuth();
+
   const tailLayout = {
     wrapperCol: {
       offset: 8,
@@ -16,20 +21,36 @@ const SignIn = () => {
   const [form] = Form.useForm();
 
   const onFinish = values => {
-    console.log('Received values of form: ', values);
+    instance.post('/login', {
+      "email": values.email,
+      "password": values.password
+    })
+    .then(res => {
+      setAuth(JSON.stringify(res.data))
+    })
+    .catch(error => notification.open({message: 'Incorrect Email or password.'}))
   };
 
   return (
     <div className="sign-in-page">
       <div className="form__container">
         <Form labelCol={{span: 24}} form={form} name='sign-up' onFinish={onFinish}>
-          <Form.Item 
-            label="Username"
-            name="Username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
-          > 
-            <Input size="large"/>
-          </Form.Item >
+
+          <Form.Item
+            name="email"
+            label="E-mail"
+            rules={[
+              {
+                type: 'email',
+                message: 'The input is not valid E-mail!',
+              },
+              {
+                required: true,
+                message: 'Please input your E-mail!',
+              }]}
+              >
+              <Input size="large"/>
+          </Form.Item>
 
           <Form.Item
             name="password"
