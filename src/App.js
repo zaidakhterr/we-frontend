@@ -19,9 +19,9 @@ const App = () => {
 
   return (
     <div className="app">
-      <React.Suspense fallback={<Loader />}>
+     <React.Suspense fallback={<Loader />}>
       {auth && auth.status ? <AuthApp /> : <UnAuthApp />}
-      </React.Suspense>
+      </React.Suspense> 
     </div>
   );
 };
