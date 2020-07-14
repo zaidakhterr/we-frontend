@@ -9,7 +9,6 @@ import useAuth from "../Hooks/useAuth";
 import instance from "../api";
 
 const SignIn = () => {
-
   const {setAuth} = useAuth();
 
   const tailLayout = {
