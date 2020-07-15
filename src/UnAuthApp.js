@@ -9,7 +9,7 @@ import SignUp from "./Pages/SignUp";
 
 const UnAuthApp = () => {
   return (
-    <div>
+    <>
       <Navbar />
       <Switch>
         <Route exact path="/" children={<Home />} />
@@ -19,7 +19,7 @@ const UnAuthApp = () => {
         {/* This stays in the end */}
         <Route path="/*" children={<NotFound />} />
       </Switch>
-    </div>
+    </>
   );
 };
 

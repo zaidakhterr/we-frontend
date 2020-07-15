@@ -1,18 +1,30 @@
-.form__container {
-    width: 100vw;
-    height: 93vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.sign-up-page {
-    padding: 32px;
+.form-container {
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 24px;
+  height: 100%;
+  min-height: calc(100vh - 53px - 87.5px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+.sign-up-page,
 .sign-in-page {
-    padding: 22px;
+  min-height: calc(100vh - 53px - 87.5px);
 }
 
-.form__signup__button {
-    padding-top: 28px;
+#sign-in,
+#sign-up {
+  width: 100%;
+}
+
+.form-container .ant-form-item-label {
+  padding: 0 !important;
+}
+
+.form-container h1 {
+  margin-bottom: 32px;
 }
