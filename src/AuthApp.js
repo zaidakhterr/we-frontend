@@ -9,7 +9,7 @@ import AskQuestion from "./Pages/AskQuestion";
 
 const AuthApp = () => {
   return (
-    <div>
+    <>
       <AuthNavbar />
       <Switch>
         <Route exact path="/" children={<Home />} />
@@ -24,7 +24,7 @@ const AuthApp = () => {
         {/* This stays in the end */}
         <Route path="/*" children={<NotFound />} />
       </Switch>
-    </div>
+    </>
   );
 };
 

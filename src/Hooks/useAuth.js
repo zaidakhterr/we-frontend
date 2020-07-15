@@ -4,7 +4,7 @@ import api from "./../api";
 
 const useAuth = () => {
   const [auth, setAuth] = useState(
-    () => window.localStorage.getItem("nf-auth") || null
+    () => JSON.parse(window.localStorage.getItem("nf-auth")) || null
   );
 
   useEffect(() => {
