@@ -7,9 +7,9 @@ const NotFound = () => {
   return (
     <div className="not-found-page">
       <Result
-        status="404"
+        status="warning"
         title="404"
-        subTitle="Sorry, the page you visited does not exist."
+        subTitle="Sorry, the page you visited does not exist. "
         extra={
           <Link to="/">
             <Button icon={<ArrowLeftOutlined />} type="default">
