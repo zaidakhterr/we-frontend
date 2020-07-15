@@ -8,11 +8,14 @@
     "antd": "^4.3.5",
     "axios": "^0.19.2",
     "craco-less": "^1.17.0",
+    "is-hotkey": "^0.1.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-responsive": "^8.1.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "slate": "^0.58.3",
+    "slate-react": "^0.58.3"
   },
   "devDependencies": {
     "prettier": "^2.0.5"

@@ -16,7 +16,8 @@ const Loader = () => {
 };
 
 const App = () => {
-  const { auth } = useAuth();
+  // const { auth } = useAuth();
+  let auth = { status: true };
 
   return (
     <div className="app">
