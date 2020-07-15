@@ -1,16 +1,15 @@
 import "./Pages.css";
 
 import React from "react";
-
 import { Form, Input, Button, notification, Typography, Row } from "antd";
+import { Link, useHistory } from "react-router-dom";
 
 import instance from "../api";
-
 import useAuth from "../Hooks/useAuth";
-import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const { setAuth } = useAuth();
+  const history = useHistory();
 
   const [form] = Form.useForm();
 
@@ -23,6 +22,8 @@ const SignUp = () => {
         password: values.password,
       })
       .then(res => {
+        form.resetFields();
+        history.push("/");
         setAuth(JSON.stringify(res.data));
       })
       .catch(error =>

@@ -1,7 +1,7 @@
 import "./Pages.css";
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Form, Input, Button, notification, Typography, Row } from "antd";
 
 import useAuth from "../Hooks/useAuth";
@@ -10,6 +10,7 @@ import instance from "../api";
 
 const SignIn = () => {
   const { setAuth } = useAuth();
+  const history = useHistory();
 
   const [form] = Form.useForm();
 
@@ -20,6 +21,8 @@ const SignIn = () => {
         password: values.password,
       })
       .then(res => {
+        form.resetFields();
+        history.push("/");
         setAuth(JSON.stringify(res.data));
       })
       .catch(error =>
