@@ -1,7 +1,7 @@
 import "./Pages.css";
 
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Form, Input, Button, notification, Typography, Row } from "antd";
 
 import useAuth from "../Hooks/useAuth";
@@ -10,7 +10,6 @@ import instance from "../api";
 
 const SignIn = () => {
   const { setAuth } = useAuth();
-  const history = useHistory();
 
   const [form] = Form.useForm();
 
@@ -21,17 +20,16 @@ const SignIn = () => {
         password: values.password,
       })
       .then(res => {
-        form.resetFields();
-        history.push("/");
-        setAuth(JSON.stringify(res.data));
+        setAuth(res.data);
       })
-      .catch(error =>
+      .catch(error => {
         notification.warn({
           message: "Incorrect Email or password.",
-          description:
-            "You entered an incorrect Email or Password. Please enter the correct one and try again",
-        })
-      );
+          description: `You entered an incorrect Email or Password. Please enter the correct one and try again`,
+          duration: 5,
+        });
+        form.resetFields();
+      });
   };
 
   return (
@@ -44,6 +42,7 @@ const SignIn = () => {
           form={form}
           name="sign-in"
           onFinish={onFinish}
+          autoComplete="on"
         >
           <Form.Item
             name="email"

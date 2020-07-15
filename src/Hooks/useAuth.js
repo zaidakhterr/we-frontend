@@ -8,14 +8,16 @@ const useAuth = () => {
   );
 
   useEffect(() => {
-    window.localStorage.setItem("nf-auth", auth);
+    window.localStorage.setItem("nf-auth", JSON.stringify(auth));
 
     if (auth && auth.status) {
-      const { token } = auth;
+      const { token } = auth.result;
       api.defaults.headers.common["Authorization"] = token;
     } else {
       delete api.defaults.headers.common["Authorization"];
     }
+
+    return () => (window.location.href = "/");
   }, [auth]);
 
   return { auth, setAuth };

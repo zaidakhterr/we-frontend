@@ -18,9 +18,11 @@ const AuthApp = () => {
           path="/question"
           children={<Redirect to="/question/ask" />}
         />
+        {/* <Route exact path="/sign-in" children={<Redirect to="/" />} />
+        <Route exact path="/sign-up" children={<Redirect to="/" />} /> */}
+
         <Route exact path="/question/ask" children={<AskQuestion />} />
         <Route exact path="/profile" children={<Profile />} />
-
         {/* This stays in the end */}
         <Route path="/*" children={<NotFound />} />
       </Switch>

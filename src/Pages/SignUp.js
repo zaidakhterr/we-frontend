@@ -2,14 +2,13 @@ import "./Pages.css";
 
 import React from "react";
 import { Form, Input, Button, notification, Typography, Row } from "antd";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import instance from "../api";
 import useAuth from "../Hooks/useAuth";
 
 const SignUp = () => {
   const { setAuth } = useAuth();
-  const history = useHistory();
 
   const [form] = Form.useForm();
 
@@ -22,17 +21,17 @@ const SignUp = () => {
         password: values.password,
       })
       .then(res => {
+        setAuth(res.data);
         form.resetFields();
-        history.push("/");
-        setAuth(JSON.stringify(res.data));
       })
-      .catch(error =>
+      .catch(error => {
         notification.warn({
           message: "Email already exists",
-          description:
-            "User with this Email already exists. Please try registering with another Email",
-        })
-      );
+          description: `User with Email ${values.email} already exists. Please try registering with another Email`,
+          duration: 5,
+        });
+        form.resetFields();
+      });
   };
 
   return (

@@ -8,20 +8,27 @@ import { useMediaQuery } from "react-responsive";
 
 import img from "../../Assets/logo-mobile.svg";
 import img_desktop from "../../Assets/logo-desktop.svg";
-
-const menu = (
-  <Menu>
-    <Menu.Item>
-      <Link to="/profile">Profile</Link>
-    </Menu.Item>
-    <Menu.Item>Sign Out</Menu.Item>
-  </Menu>
-);
+import useAuth from "../../Hooks/useAuth";
 
 const AuthNavbar = () => {
   const isMobile = useMediaQuery({
     query: "(max-width: 767px)",
   });
+
+  const { setAuth } = useAuth();
+
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <Link to="/profile">Profile</Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="/" onClick={() => setAuth(null)}>
+          Sign Out
+        </Link>
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <header className="header">
