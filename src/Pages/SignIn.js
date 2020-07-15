@@ -1,7 +1,7 @@
 import "./Pages.css";
 
 import React from "react";
-
+import { Link } from "react-router-dom";
 import { Form, Input, Button, notification, Typography, Row } from "antd";
 
 import useAuth from "../Hooks/useAuth";
@@ -81,6 +81,10 @@ const SignIn = () => {
             </Row>
           </Form.Item>
         </Form>
+
+        <p>
+          Don't have an account? <Link to="/sign-up">Sign Up here</Link>
+        </p>
       </div>
     </div>
   );

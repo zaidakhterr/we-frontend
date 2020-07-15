@@ -7,6 +7,7 @@ import { Form, Input, Button, notification, Typography, Row } from "antd";
 import instance from "../api";
 
 import useAuth from "../Hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const { setAuth } = useAuth();
@@ -117,6 +118,10 @@ const SignUp = () => {
             </Row>
           </Form.Item>
         </Form>
+
+        <p>
+          Already have an account? <Link to="/sign-in">Sign In here</Link>
+        </p>
       </div>
     </div>
   );
