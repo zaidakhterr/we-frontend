@@ -1,10 +1,11 @@
 import "./Pages.css";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { Input, Typography, Button, Form, Tag } from "antd";
+import { Input, Typography, Button, Form, Tag, notification } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 import Editor from "../Components/Editor/Editor";
+import instance from "../api";
 
 const AskQuestion = () => {
   const [question, setQuestion] = useState("");
@@ -55,7 +56,34 @@ const AskQuestion = () => {
 
   const onSubmit = () => {
     if (!validateDescription()) return;
-    console.log("SUBMIT");
+
+    instance
+      .post("/question", {
+        question: JSON.stringify(question),
+        description: JSON.stringify(description),
+        tags: JSON.stringify(tags),
+      })
+      .then(res => {
+        notification.success({
+          message: "Submitted",
+          description: "You question has been submitted succesfully",
+        });
+        setDescription([
+          {
+            type: "paragraph",
+            children: [{ text: "" }],
+          },
+        ]);
+        setQuestion("");
+        setTags([]);
+      })
+      .catch(error => {
+        notification.warn({
+          message: "Oops!",
+          description:
+            "Something went wrong. Your question could not be submitted. Please try again later.",
+        });
+      });
   };
 
   return (
@@ -63,6 +91,7 @@ const AskQuestion = () => {
       <div className="container">
         <Typography.Title level={1}>Ask a question</Typography.Title>
         <Form
+          autoComplete="off"
           onFinish={onSubmit}
           onFinishFailed={() => {
             validateDescription();
