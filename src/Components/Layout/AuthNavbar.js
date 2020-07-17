@@ -1,26 +1,60 @@
-import './layout.css';
-import img from '../../Assets/logo-mobile.svg';
+import "./layout.css";
 
 import React from "react";
 import { Link } from "react-router-dom";
+import { Row, Col, Menu, Dropdown, Avatar } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { useMediaQuery } from "react-responsive";
 
-import { Row, Col, Menu, Dropdown, Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import img from "../../Assets/logo-mobile.svg";
+import img_desktop from "../../Assets/logo-desktop.svg";
+import useAuth from "../../Hooks/useAuth";
 
-const menu = (
+const AuthNavbar = () => {
+  const isMobile = useMediaQuery({
+    query: "(max-width: 767px)",
+  });
+
+  const { setAuth } = useAuth();
+
+  const menu = (
     <Menu>
-    <Menu.Item><Link to="/profile">Profile</Link></Menu.Item>
-    <Menu.Item>Sign Out</Menu.Item>
-  </Menu>
-);
+      <Menu.Item>
+        <Link to="/profile">Profile</Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="/" onClick={() => setAuth(null)}>
+          Sign Out
+        </Link>
+      </Menu.Item>
+    </Menu>
+  );
 
-const NavbarMobile = () => {
-  return <div className="nav-container">  
-  <Row type="flex" justify="space-between">
-    <Col><img src={img} alt="Logo" width="90px" height="20px"/></Col>
-    <Col><Dropdown overlay={menu}><Avatar style={{ backgroundColor: '#ed9327' }} icon={<UserOutlined />} /></Dropdown></Col>
-  </Row>
-</div>
+  return (
+    <header className="header">
+      <div className="container">
+        <Row type="flex" justify="space-between" align="middle">
+          <Col>
+            <Link to="/">
+              {isMobile ? (
+                <img src={img} alt="Logo" height="25px" />
+              ) : (
+                <img src={img_desktop} alt="Logo" height="20px" />
+              )}
+            </Link>
+          </Col>
+          <Col>
+            <Dropdown overlay={menu} placement="bottomRight" arrow>
+              <Avatar
+                style={{ backgroundColor: "#ed9327" }}
+                icon={<UserOutlined />}
+              />
+            </Dropdown>
+          </Col>
+        </Row>
+      </div>
+    </header>
+  );
 };
 
-export default NavbarMobile;
+export default AuthNavbar;

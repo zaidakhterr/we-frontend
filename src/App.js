@@ -1,11 +1,11 @@
 import "./App.less";
-import Footer from './Components/Layout/Footer';
 
 import React from "react";
-
-import useAuth from "./Hooks/useAuth";
 import { Result } from "antd";
 import { Loading3QuartersOutlined } from "@ant-design/icons";
+
+import useAuth from "./Hooks/useAuth";
+import Footer from "./Components/Layout/Footer";
 
 const AuthApp = React.lazy(() => import("./AuthApp"));
 const UnAuthApp = React.lazy(() => import("./UnAuthApp"));
@@ -20,11 +20,13 @@ const App = () => {
   return (
     <div className="app">
       <React.Suspense fallback={<Loader />}>
-        {auth && auth.status ? <AuthApp /> : <UnAuthApp />}
+        <main className="main">
+          {auth && auth.status ? <AuthApp /> : <UnAuthApp />}
+        </main>
       </React.Suspense>
       <Footer />
     </div>
   );
-}; 
+};
 
 export default App;
