@@ -22,9 +22,7 @@ const AuthNavbar = () => {
         <Link to="/profile">Profile</Link>
       </Menu.Item>
       <Menu.Item>
-        <Link to="/" onClick={() => setAuth(null)}>
-          Sign Out
-        </Link>
+        <Link onMouseDown={() => setAuth(null)}>Sign Out</Link>
       </Menu.Item>
     </Menu>
   );
@@ -44,13 +42,19 @@ const AuthNavbar = () => {
           </Col>
           <Col>
             <Dropdown overlay={menu} placement="bottomRight" arrow>
-
-            {(auth.result.user.image !== null) ?
-            <Avatar src ="auth.result.user.image"/> : 
-            <Avatar style={{backgroundColor:'#ed9327'}}> 
-            {`${(auth.result.user.fullname).split('')[0]}`}
-            </Avatar>}
-
+              {auth.result.user.image !== null ? (
+                <Avatar src={auth.result.user.image} />
+              ) : (
+                <Avatar
+                  style={{
+                    backgroundColor: "#ed9327",
+                    userSelect: "none",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {`${auth.result.user.fullname.split("")[0]}`}
+                </Avatar>
+              )}
             </Dropdown>
           </Col>
         </Row>

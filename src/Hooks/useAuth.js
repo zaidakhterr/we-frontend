@@ -20,7 +20,7 @@ const useAuth = () => {
     return () => (window.location.href = "/");
   }, [auth]);
 
-  return { auth, setAuth };
+  return { auth: JSON.parse(window.localStorage.getItem("nf-auth")), setAuth };
 };
 
 export default useAuth;
