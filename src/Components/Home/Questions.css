@@ -1,0 +1,5 @@
+.question-item{
+    border-bottom: 1px outset rgba(28,110,164,0.26);
+    padding: 10px 50px;
+    width: 100%;
+}
