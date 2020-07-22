@@ -3,7 +3,6 @@ import "./layout.css";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Menu, Dropdown, Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
 import { useMediaQuery } from "react-responsive";
 
 import img from "../../Assets/logo-mobile.svg";
@@ -15,7 +14,7 @@ const AuthNavbar = () => {
     query: "(max-width: 767px)",
   });
 
-  const { setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
 
   const menu = (
     <Menu>
@@ -23,9 +22,7 @@ const AuthNavbar = () => {
         <Link to="/profile">Profile</Link>
       </Menu.Item>
       <Menu.Item>
-        <Link to="/" onClick={() => setAuth(null)}>
-          Sign Out
-        </Link>
+        <Link onMouseDown={() => setAuth(null)}>Sign Out</Link>
       </Menu.Item>
     </Menu>
   );
@@ -45,10 +42,19 @@ const AuthNavbar = () => {
           </Col>
           <Col>
             <Dropdown overlay={menu} placement="bottomRight" arrow>
-              <Avatar
-                style={{ backgroundColor: "#ed9327" }}
-                icon={<UserOutlined />}
-              />
+              {auth.result.user.image !== null ? (
+                <Avatar src={auth.result.user.image} />
+              ) : (
+                <Avatar
+                  style={{
+                    backgroundColor: "#ed9327",
+                    userSelect: "none",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {`${auth.result.user.fullname.split("")[0]}`}
+                </Avatar>
+              )}
             </Dropdown>
           </Col>
         </Row>
