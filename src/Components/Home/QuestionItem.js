@@ -9,8 +9,8 @@ const QuestionItem = ({ id, question, tags }) => {
     <Link to={`/question/${id}`}>
       <div className="question-item">
         <p>{question}</p>
-        {tags.map(tag => (
-          <Tag color="processing" closable={false}>
+        {tags.map((tag, i) => (
+          <Tag key={i} color="processing" closable={false}>
             {tag}
           </Tag>
         ))}
