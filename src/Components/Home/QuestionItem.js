@@ -1,21 +1,21 @@
 import "./Questions.css";
 
 import React from "react";
+import { Tag } from "antd";
+import { Link } from "react-router-dom";
 
-import { Tag } from 'antd';
-
-const QuestionItem = ({question, tags}) => { 
-
+const QuestionItem = ({ id, question, tags }) => {
   return (
-    <div className="question-item">
-    <p>{question}</p>
-    <p>{
-      <Tag 
-        color="processing" 
-        closable={false}>{tags}
-      </Tag>
-    }</p>
-    </div>
+    <Link to={`/question/${id}`}>
+      <div className="question-item">
+        <p>{question}</p>
+        {tags.map(tag => (
+          <Tag color="processing" closable={false}>
+            {tag}
+          </Tag>
+        ))}
+      </div>
+    </Link>
   );
 };
 

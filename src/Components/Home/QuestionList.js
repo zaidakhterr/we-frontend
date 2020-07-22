@@ -1,36 +1,37 @@
 import "./Questions.css";
 
-import React,{ useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import instance from '../../api';
-import QuestionItem from './QuestionItem';
+import instance from "../../api";
+import QuestionItem from "./QuestionItem";
 
 const QuestionList = () => {
-
   const [items, setItems] = useState([]);
 
   const getQuestions = () => {
-    instance.get("/questions")
-    .then(res => setItems(res.data.result.questions))};
+    instance.get("/questions").then(res => {
+      setItems(res.data.result.questions);
+    });
+  };
 
   useEffect(() => {
     getQuestions();
   }, []);
 
-  console.log(items);
-  return(
+  return (
     <div className="question-list">
-      {items.map((item, i) => {
-        return(
+      {items.map(item => {
+        return (
           <QuestionItem
-            key={i}
-            question={items[i].question.replace(/"/g, "")} 
-            tags={items[i].tags.replace(/[[\]"]+/g,"")}
+            key={item.id}
+            id={item.id}
+            question={JSON.parse(item.question)}
+            tags={JSON.parse(item.tags)}
           />
         );
       })}
     </div>
   );
-}
+};
 
 export default QuestionList;

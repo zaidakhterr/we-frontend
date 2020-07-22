@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import api from "./../api";
 
 const useAuth = () => {
-  const [auth, setAuth] = useState(
-    () => JSON.parse(window.localStorage.getItem("nf-auth")) || null
+  const [auth, setAuth] = useState(() =>
+    JSON.parse(localStorage.getItem("nf-auth"))
   );
 
   useEffect(() => {
-    window.localStorage.setItem("nf-auth", JSON.stringify(auth));
+    localStorage.setItem("nf-auth", JSON.stringify(auth));
 
     if (auth && auth.status) {
       const { token } = auth.result;
@@ -16,11 +16,9 @@ const useAuth = () => {
     } else {
       delete api.defaults.headers.common["Authorization"];
     }
-
-    return () => (window.location.href = "/");
   }, [auth]);
 
-  return { auth: JSON.parse(window.localStorage.getItem("nf-auth")), setAuth };
+  return { auth: JSON.parse(localStorage.getItem("nf-auth")), setAuth };
 };
 
 export default useAuth;
