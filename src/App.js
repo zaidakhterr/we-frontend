@@ -1,12 +1,11 @@
 import "./App.less";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Result } from "antd";
 import { Loading3QuartersOutlined } from "@ant-design/icons";
 
 import useAuth from "./Hooks/useAuth";
 import Footer from "./Components/Layout/Footer";
-import api from "./api";
 
 const AuthApp = React.lazy(() => import("./AuthApp"));
 const UnAuthApp = React.lazy(() => import("./UnAuthApp"));
