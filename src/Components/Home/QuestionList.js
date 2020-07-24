@@ -8,14 +8,10 @@ import QuestionItem from "./QuestionItem";
 const QuestionList = () => {
   const [items, setItems] = useState([]);
 
-  const getQuestions = () => {
+  useEffect(() => {
     instance.get("/questions").then(res => {
       setItems(res.data.result.questions);
     });
-  };
-
-  useEffect(() => {
-    getQuestions();
   }, []);
 
   return (
@@ -25,7 +21,7 @@ const QuestionList = () => {
           <QuestionItem
             key={item.id}
             id={item.id}
-            question={JSON.parse(item.question)}
+            question={item.question}
             tags={JSON.parse(item.tags)}
           />
         );

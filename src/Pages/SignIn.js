@@ -21,6 +21,7 @@ const SignIn = () => {
       })
       .then(res => {
         setAuth(res.data);
+        form.resetFields();
       })
       .catch(error => {
         notification.warn({
