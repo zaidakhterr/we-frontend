@@ -20,6 +20,8 @@ const AskQuestion = () => {
   const [isInputTagFieldVisible, setIsInputTagFieldVisible] = useState(false);
   const [tags, setTags] = useState([]);
 
+  const [form] = Form.useForm();
+
   const validateDescription = useCallback(() => {
     for (let node of description) {
       for (let leaf of node.children) {
@@ -76,6 +78,7 @@ const AskQuestion = () => {
         ]);
         setQuestion("");
         setTags([]);
+        form.resetFields();
       })
       .catch(error => {
         notification.warn({
@@ -91,6 +94,7 @@ const AskQuestion = () => {
       <div className="container">
         <Typography.Title level={1}>Ask a question</Typography.Title>
         <Form
+          form={form}
           autoComplete="off"
           onFinish={onSubmit}
           onFinishFailed={() => {
