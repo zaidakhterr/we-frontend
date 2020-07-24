@@ -1,23 +1,29 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { atom, useRecoilState } from "recoil";
 
 import api from "./../api";
 
+const authState = atom({
+  key: "productListState",
+  default: JSON.parse(localStorage.getItem("nf-auth")) || null,
+});
+
 const useAuth = () => {
-  const [auth, setAuth] = useState(
-    () => JSON.parse(window.localStorage.getItem("nf-auth")) || null
-  );
+  const [auth, setAuth] = useRecoilState(authState);
 
   useEffect(() => {
-    window.localStorage.setItem("nf-auth", JSON.stringify(auth));
-
-    if (auth && auth.status) {
-      const { token } = auth.result;
-      api.defaults.headers.common["Authorization"] = token;
+    if (auth === null) {
+      localStorage.removeItem("nf-auth");
     } else {
-      delete api.defaults.headers.common["Authorization"];
-    }
+      localStorage.setItem("nf-auth", JSON.stringify(auth));
 
-    return () => (window.location.href = "/");
+      if (auth.status) {
+        const { token } = auth.result;
+        api.defaults.headers.common["Authorization"] = token;
+      } else {
+        delete api.defaults.headers.common["Authorization"];
+      }
+    }
   }, [auth]);
 
   return { auth, setAuth };

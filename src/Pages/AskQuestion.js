@@ -61,7 +61,7 @@ const AskQuestion = () => {
 
     instance
       .post("/question", {
-        question: JSON.stringify(question),
+        question,
         description: JSON.stringify(description),
         tags: JSON.stringify(tags),
       })
