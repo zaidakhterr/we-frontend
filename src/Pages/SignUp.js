@@ -1,8 +1,9 @@
 import "./Pages.css";
 
 import React from "react";
-import { Form, Input, Button, notification, Typography, Row } from "antd";
+import { Form, Input, Button, notification, Typography, Row, Col } from "antd";
 import { Link } from "react-router-dom";
+import { SmileTwoTone } from "@ant-design/icons";
 
 import instance from "../api";
 import useAuth from "../Hooks/useAuth";
@@ -22,12 +23,38 @@ const SignUp = () => {
       })
       .then(res => {
         setAuth(res.data);
+        notification.open({
+          message: `Welcome ${values.fullname}!`,
+          icon: <SmileTwoTone twoToneColor="#ed9327" />,
+          description: (
+            <>
+              <p>Get started right now.</p>
+              <Row gutter={[16, 16]}>
+                <Col>
+                  <Button type="primary" href="/question/ask" size="small">
+                    Ask a Question
+                  </Button>
+                </Col>
+                <Col>
+                  <Button type="default" href="/profile" size="small">
+                    View Profile
+                  </Button>
+                </Col>
+              </Row>
+            </>
+          ),
+        });
         form.resetFields();
       })
       .catch(error => {
         notification.warn({
           message: "Email already exists",
-          description: `User with Email ${values.email} already exists. Please try registering with another Email`,
+          description: (
+            <p>
+              User with email <strong>{values.email}</strong> already exists.
+              Please try registering with another email
+            </p>
+          ),
           duration: 5,
         });
         form.resetFields();
