@@ -1,0 +1,9 @@
+.question-display {
+    width: 100%;
+    padding: 16px 110px;
+    /* padding-left: 65px; */
+}
+
+.question-display-tags {
+    padding-top: 20px;
+}
