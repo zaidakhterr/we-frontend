@@ -6,6 +6,7 @@ import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
 import NotFound from "./Pages/404";
 import AskQuestion from "./Pages/AskQuestion";
+import Question from "./Pages/Question";
 
 const AuthApp = () => {
   return (
@@ -23,6 +24,9 @@ const AuthApp = () => {
 
         <Route exact path="/question/ask" children={<AskQuestion />} />
         <Route exact path="/profile" children={<Profile />} />
+
+        <Route exact path="/question/:id" children={<Question/>} />
+        
         {/* This stays in the end */}
         <Route path="/*" children={<NotFound />} />
       </Switch>

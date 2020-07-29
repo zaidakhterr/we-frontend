@@ -225,7 +225,7 @@ const Toolbar = () => {
   );
 };
 
-const Editor = ({ value, setValue, error }) => {
+const Editor = ({ value, setValue, error, readOnly = false }) => {
   const renderElement = useCallback(props => <Element {...props} />, []);
   const renderLeaf = useCallback(props => <Leaf {...props} />, []);
   const editor = useMemo(() => withReact(createEditor()), []);
@@ -238,8 +238,9 @@ const Editor = ({ value, setValue, error }) => {
         onChange={newValue => setValue(newValue)}
       >
         <div className="editor" style={{ borderColor: error ? "#ff4d4f" : "" }}>
-          <Toolbar />
+          {!readOnly && <Toolbar />}
           <Editable
+            readOnly={readOnly}
             className="editable"
             renderElement={renderElement}
             renderLeaf={renderLeaf}

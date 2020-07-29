@@ -23,6 +23,7 @@ const QuestionList = () => {
             id={item.id}
             question={item.question}
             tags={JSON.parse(item.tags)}
+            time={item.updated_at}
           />
         );
       })}

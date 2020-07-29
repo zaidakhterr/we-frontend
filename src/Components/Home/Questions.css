@@ -11,3 +11,8 @@
 .question-item:hover {
   border-color: #fab350;
 }
+
+.question-item-time {
+  padding-top: 14px;
+  color: #9da1a6;
+}

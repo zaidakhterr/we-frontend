@@ -3,8 +3,9 @@ import "./Questions.css";
 import React from "react";
 import { Tag } from "antd";
 import { Link } from "react-router-dom";
+import moment from 'moment';
 
-const QuestionItem = ({ id, question, tags }) => {
+const QuestionItem = ({ id, question, tags, time }) => {
   return (
     <Link to={`/question/${id}`}>
       <div className="question-item">
@@ -14,6 +15,7 @@ const QuestionItem = ({ id, question, tags }) => {
             {tag}
           </Tag>
         ))}
+        <p className="question-item-time">Asked {moment(time).fromNow()}</p>
       </div>
     </Link>
   );
