@@ -4,7 +4,7 @@ import { atom, useRecoilState } from "recoil";
 import api from "./../api";
 
 const authState = atom({
-  key: "productListState",
+  key: "authState",
   default: JSON.parse(localStorage.getItem("nf-auth")) || null,
 });
 
