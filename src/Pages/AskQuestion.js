@@ -92,7 +92,7 @@ const AskQuestion = () => {
   return (
     <div className="ask-question">
       <div className="container">
-        <Typography.Title level={1}>Ask a question</Typography.Title>
+        <h1 level={1}>Ask a question</h1>
         <Form
           form={form}
           autoComplete="off"
