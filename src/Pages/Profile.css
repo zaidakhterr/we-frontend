@@ -1,23 +1,5 @@
-.profile-page form{
-    padding-left: 10vw;
-    display: grid;
-}
-h1.ant-typography{
-    margin-left: 10vw;
-    
-}
-
-.profile-page
-{
-    max-width: 500px;
+.form {
+  max-width: 500px;
   width: 100%;
-  /*margin: 0 auto;*/
-  padding: 40px 24px;
   height: 100%;
-  min-height: calc(100vh - 53px - 87.5px);
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  align-items: left;
 }
-
