@@ -9,3 +9,12 @@
 h2 {
   margin-bottom: 4px;
 }
+
+.question-postanswer-button {
+  padding: 12px;
+}
+
+.post-answer-button {
+  visibility: hidden;
+  background-color: transparent;
+}

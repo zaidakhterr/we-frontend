@@ -2,7 +2,7 @@ import "./Pages.css";
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { Form, Input, Button, notification, Typography, Row } from "antd";
+import { Form, Input, Button, notification, Row } from "antd";
 
 import useAuth from "../Hooks/useAuth";
 
