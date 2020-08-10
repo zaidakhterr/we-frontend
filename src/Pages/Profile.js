@@ -1,7 +1,6 @@
 import React from "react";
 import useAuth from "../Hooks/useAuth.js";
-import { Form, Input, Button } from "antd";
-import { Typography } from "antd";
+import { Form, Input, Button, Typography, Row, Col} from "antd";
 import { useEffect } from "react";
 import "./Profile.css";
 import instance from "../api.js";
@@ -56,9 +55,18 @@ const Profile = () => {
             </Form.Item>
             <Form.Item>
               {/* Give a type submit */}
-              <Button type="primary" htmlType="submit">
-                Update Profile
-              </Button>
+              <Row type="flex" align="middle">
+              <Col span={8}>
+                <Button type="primary" htmlType="submit">
+                  Update Profile
+                </Button>
+              </Col>
+              <Col span={8} offset={6}>
+                <Button type="danger" htmlType="submit">
+                  Delete Profile
+                </Button>
+              </Col>
+              </Row>
             </Form.Item>
           </Form>
         </div>
