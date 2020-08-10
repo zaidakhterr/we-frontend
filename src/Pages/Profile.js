@@ -1,84 +1,79 @@
 import React from "react";
-import ReactDOM from 'react-dom';
-import { UserOutlined } from '@ant-design/icons';
 import useAuth from "../Hooks/useAuth.js";
-import { Form, Input, Button} from 'antd';
-import { Typography } from 'antd';
-import {useEffect} from 'react';
-import './Profile.css';
+import { Form, Input, Button} from "antd";
+import { Typography, Row, Col} from "antd";
+import { useEffect } from "react";
+import "./Profile.css";
+import instance from "../api.js";
 
-
-
-//const { setAuth } = useAuth();
 const Profile = () => {
- 
   const { auth } = useAuth();
   const [form] = Form.useForm();
 
-  /*const Demo = () => {
-    const onFinish = values => {
-      console.log(values);
-    }*/
-    
-    useEffect(() => {
-      form.setFieldsValue({
-        email: auth.result.user.email,
-        //fullname: "auth.result.user.fullname"
-      })
-      console.log(auth.result.user.email)
-    },[auth,form]);
+  useEffect(() => {
+    form.setFieldsValue({
+      email: auth.result.user.email,
+      fullname: auth.result.user.fullname ? auth.result.user.fullname : "",
+      description: auth.result.user.description
+        ? auth.result.user.description
+        : "",
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleSubmit = values => {
+    console.log("Form Submitted: ", values);
+    // Make API request here
+  };
+
   return (
-  <div className="profile-page">
-        <Typography.Title level={1}>Profile</Typography.Title>
-          <Form  onFinish={() =>
-          console.log(auth.result.user)
-
-          }> 
-      <Form.Item
-        name='fullname'
-        label="Name"     
-        labelCol={{ span: 24 }}
-
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Input value={auth.result.user.fullname} />
-        
-      </Form.Item>
-      <Form.Item
-        name='email'
-        label="Email"
-        labelCol={{ span: 24 }}
-
-        rules={[
-          {
-            type: 'email',
-          },
-        ]}
-      >
-        <Input />
-        
-      </Form.Item>
-      <Form.Item name={['user', 'bio']} 
-      label="Bio"
-      labelCol={{ span: 24 }}
->
-        <Input.TextArea />
-      </Form.Item>
-      <Form.Item>
-        <Button onClick={() =>
-          console.log(auth.result.user.fullname)} >Submit</Button>
-      </Form.Item> 
-     
-    </Form>
-
-  </div>
+    <div className="profile-page">
+      {/* Added a container to center the whole thing */}
+      <div className="container">
+        {/* Placed the form inside a div to give a max-width */}
+        <div className="form">
+          <Typography.Title level={1}>Profile</Typography.Title>
+          {/* I added form={form} right below to link the form with the hook */}
+          <Form form={form} onFinish={handleSubmit}>
+            {/* Removed the required rule for now */}
+            <Form.Item name="fullname" label="Name" labelCol={{ span: 24 }}>
+              <Input value={auth.result.user.fullname} />
+            </Form.Item>
+            <Form.Item
+              name="email"
+              label="Email"
+              labelCol={{ span: 24 }}
+              rules={[
+                {
+                  type: "email",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item name="description" label="Bio" labelCol={{ span: 24 }}>
+              <Input.TextArea autoSize={{ minRows: 4, maxRows: 8 }} />
+            </Form.Item>
+            <Form.Item>
+              {/* Give a type submit */}
+              <Row>
+                <Col>
+                <Button type="primary" htmlType="submit">
+                Update Profile
+              </Button>
+              </Col>
+              <Col>
+                <Button type="danger" htmlType="submit">
+                Delete Profile 
+              </Button>
+                </Col>
+                </Row>
+            </Form.Item>
+          </Form>
+        </div>
+      </div>
+    </div>
   );
-      
 };
 
 export default Profile;
-//<Form /*{...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}*/> 
