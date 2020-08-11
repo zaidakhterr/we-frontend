@@ -1,7 +1,7 @@
 import "./Pages.css";
 
 import React from "react";
-import { Form, Input, Button, notification, Typography, Row, Col } from "antd";
+import { Form, Input, Button, notification, Row, Col } from "antd";
 import { Link } from "react-router-dom";
 import { SmileTwoTone } from "@ant-design/icons";
 
