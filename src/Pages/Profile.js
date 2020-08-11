@@ -1,29 +1,53 @@
 import React from "react";
 import useAuth from "../Hooks/useAuth.js";
-import { Form, Input, Button, Typography, Row, Col} from "antd";
+import { Form, Input, Button, Typography, Popconfirm, message } from "antd";
 import { useEffect } from "react";
+import { useHistory } from "react-router";
 import "./Profile.css";
 import instance from "../api.js";
 
 const Profile = () => {
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [form] = Form.useForm();
 
   useEffect(() => {
     form.setFieldsValue({
       email: auth.result.user.email,
-      fullname: auth.result.user.fullname ? auth.result.user.fullname : "",
+      fullname: auth.result.user.fullname 
+        ? auth.result.user.fullname 
+        : "",
       description: auth.result.user.description
         ? auth.result.user.description
         : "",
     });
+    handleSubmit();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+    //Make API request here
   const handleSubmit = values => {
-    console.log("Form Submitted: ", values);
-    // Make API request here
-  };
+    if(values) {
+         instance
+      .put("/user", {
+        fullname: values.fullname,
+        email: values.email,
+        description: values.description,
+        image: auth.result.user.image
+      })
+      .then(res => setAuth(a => ({...a, result: {...a.result, user: res.data.result.user}})));
+    }};
+
+    const confirm = () => {
+      instance
+      .delete("/user")
+      .then(res => setAuth(null));
+    }
+
+    const changePassword = pass => {
+      instance
+      .put("/changePassword")
+      .then(pass => console.log(pass));
+    }
 
   return (
     <div className="profile-page">
@@ -48,27 +72,33 @@ const Profile = () => {
                 },
               ]}
             >
-              <Input />
+              <Input 
+                readOnly
+              />
             </Form.Item>
             <Form.Item name="description" label="Bio" labelCol={{ span: 24 }}>
               <Input.TextArea autoSize={{ minRows: 4, maxRows: 8 }} />
             </Form.Item>
             <Form.Item>
               {/* Give a type submit */}
-              <Row type="flex" align="middle">
-              <Col span={8}>
                 <Button type="primary" htmlType="submit">
                   Update Profile
                 </Button>
-              </Col>
-              <Col span={8} offset={6}>
-                <Button type="danger" htmlType="submit">
-                  Delete Profile
-                </Button>
-              </Col>
-              </Row>
             </Form.Item>
           </Form>
+          <Popconfirm
+            title="Are you sure delete your account?"
+            onConfirm={confirm}
+            okText="Yes"
+            cancelText="No"
+            >
+            <Button type="danger">
+              Delete Account
+            </Button>
+          </Popconfirm>
+          <Button type="success" onClick={changePassword}>
+              Change Password
+            </Button>
         </div>
       </div>
     </div>
