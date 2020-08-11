@@ -1,38 +1,27 @@
-import React from "react";
-//import ReactDOM from "react-dom";
-import useAuth from "../Hooks/useAuth.js";
-<<<<<<< HEAD
-import 'antd/dist/antd.css';
-import { Form, Input, Button, Typography, Modal, Row, Col} from "antd";
-import { useEffect, useState } from "react";
-=======
-import { Form, Input, Button, Typography, Popconfirm, message } from "antd";
-import { useEffect } from "react";
-import { useHistory } from "react-router";
->>>>>>> 4bc6a332a5209b8d5824bce332206e5bdfd3bc8a
 import "./Profile.css";
-//import instance from "../api.js";
+
+import React , { useEffect, useState } from "react";
+import { Form, Input, Button, Typography, Popconfirm, Modal, notification } from "antd";
+
+import useAuth from "../Hooks/useAuth.js";
+import instance from "../api.js";
 
 const Profile = () => {
   const { auth, setAuth } = useAuth();
   const [form] = Form.useForm();
+  const [form2] = Form.useForm();
 
-  const [visible,setVisible]=useState(false)
+  const [ visible, setVisible ] = useState(false);
+
+  const [ oldPassword, setOldPassword ] = useState("");
+  const [ newPassword, setNewPassword ] = useState("");
 
   const showModal = () => {
     setVisible(true)
   };
 
-  const handleOk = e => {
-    console.log(e);
+  const handleCancel = () => {
     setVisible(false)
-
-  };
-
-  const handleCancel = e => {
-    console.log(e);
-    setVisible(false)
-
   };
 
   useEffect(() => {
@@ -45,7 +34,9 @@ const Profile = () => {
         ? auth.result.user.description
         : "",
     });
-    handleSubmit();
+
+  handleSubmit();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -62,17 +53,43 @@ const Profile = () => {
       .then(res => setAuth(a => ({...a, result: {...a.result, user: res.data.result.user}})));
     }};
 
-    const confirm = () => {
+  const deleteUser = () => {
       instance
       .delete("/user")
       .then(res => setAuth(null));
     }
 
-    const changePassword = pass => {
-      instance
-      .put("/changePassword")
-      .then(pass => console.log(pass));
-    }
+  const changePassword = () => {
+    console.log(oldPassword, newPassword);
+    instance
+    .put("/changePassword", {
+      old_password: oldPassword,
+      new_password: newPassword
+    })
+    .then(res => {
+      handleCancel();
+      setOldPassword("");
+      setNewPassword("");
+      notification.success({
+        message: "Submitted",
+        description: "Your password has been changed succesfully",
+      });
+    })
+    .catch((error, res) => {
+      if (error.message === "Request failed with status code 400") {
+        notification.warn({
+          message: "Incorrect Password.",
+          description: `You entered an incorrect Password. Please enter the correct one and try again`,
+          duration: 5,
+        });
+      } else {
+        notification.error({
+          message: "Oops! Something went wrong",
+          description: `Something went wrong. Try again Later.`,
+          duration: 5,
+        });
+      }});
+    };
 
   return (
     <div className="profile-page">
@@ -85,7 +102,7 @@ const Profile = () => {
           <Form form={form} onFinish={handleSubmit}>
             {/* Removed the required rule for now */}
             <Form.Item name="fullname" label="Name" labelCol={{ span: 24 }}>
-              <Input value={auth.result.user.fullname} />
+            <Input value={auth.result.user.fullname} />
             </Form.Item>
             <Form.Item
               name="email"
@@ -109,49 +126,44 @@ const Profile = () => {
                 <Button type="primary" htmlType="submit">
                   Update Profile
                 </Button>
-<<<<<<< HEAD
-              </Col>
-              <Col span={8} >
-              <Button type="primary" onClick={showModal}>
-          Change Password
-        </Button>
-        <Modal
-          title="Basic Modal"
-          visible={visible}
-          onOk={handleOk}
-          okText="Save Changes"
-          onCancel={handleCancel}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Modal>
-              </Col>
-              </Row>
-              <Row>
-              <Col span={8} >
-                <Button type="danger" htmlType="submit">
-                  Delete Profile
-                </Button>
-              </Col>
-              </Row>
-=======
->>>>>>> 4bc6a332a5209b8d5824bce332206e5bdfd3bc8a
             </Form.Item>
           </Form>
+
           <Popconfirm
             title="Are you sure delete your account?"
-            onConfirm={confirm}
+            onConfirm={deleteUser}
             okText="Yes"
             cancelText="No"
             >
-            <Button type="danger">
-              Delete Account
-            </Button>
+            <Button type="danger">Delete Account</Button>
           </Popconfirm>
-          <Button type="success" onClick={changePassword}>
-              Change Password
-            </Button>
+
+          <Button type="primary" onClick={showModal}>Change Password</Button>
+          <Modal
+            title="Change Password"
+            visible={visible}
+            onOk={changePassword}
+            okText="Save Changes"
+            onCancel={handleCancel}
+          >
+
+            <Form form={form2}>
+              <Form.Item name="old_password" label="Current Password" labelCol={{ span: 24 }}>
+                <Input 
+                  type="password"
+                  value={oldPassword}
+                  onChange={event => setOldPassword(event.target.value)}
+                />
+              </Form.Item>
+              <Form.Item name="new_password" label="New Password" labelCol={{ span: 24 }}>
+                <Input 
+                  type="password"
+                  value={newPassword}
+                  onChange={event => setNewPassword(event.target.value)}
+                />
+              </Form.Item>
+            </Form>
+          </Modal>
         </div>
       </div>
     </div>
