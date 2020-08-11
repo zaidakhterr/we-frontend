@@ -1,14 +1,33 @@
 import React from "react";
+//import ReactDOM from "react-dom";
 import useAuth from "../Hooks/useAuth.js";
-import { Form, Input, Button} from "antd";
-import { Typography, Row, Col} from "antd";
-import { useEffect } from "react";
+import 'antd/dist/antd.css';
+import { Form, Input, Button, Typography, Modal, Row, Col} from "antd";
+import { useEffect, useState } from "react";
 import "./Profile.css";
-import instance from "../api.js";
+//import instance from "../api.js";
 
 const Profile = () => {
   const { auth } = useAuth();
   const [form] = Form.useForm();
+
+  const [visible,setVisible]=useState(false)
+
+  const showModal = () => {
+    setVisible(true)
+  };
+
+  const handleOk = e => {
+    console.log(e);
+    setVisible(false)
+
+  };
+
+  const handleCancel = e => {
+    console.log(e);
+    setVisible(false)
+
+  };
 
   useEffect(() => {
     form.setFieldsValue({
@@ -56,18 +75,36 @@ const Profile = () => {
             </Form.Item>
             <Form.Item>
               {/* Give a type submit */}
-              <Row>
-                <Col>
+              <Row type="flex" align="middle">
+              <Col span={8}>
                 <Button type="primary" htmlType="submit">
-                Update Profile
-              </Button>
+                  Update Profile
+                </Button>
               </Col>
-              <Col>
+              <Col span={8} >
+              <Button type="primary" onClick={showModal}>
+          Change Password
+        </Button>
+        <Modal
+          title="Basic Modal"
+          visible={visible}
+          onOk={handleOk}
+          okText="Save Changes"
+          onCancel={handleCancel}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Modal>
+              </Col>
+              </Row>
+              <Row>
+              <Col span={8} >
                 <Button type="danger" htmlType="submit">
-                Delete Profile 
-              </Button>
-                </Col>
-                </Row>
+                  Delete Profile
+                </Button>
+              </Col>
+              </Row>
             </Form.Item>
           </Form>
         </div>
