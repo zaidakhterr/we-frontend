@@ -20,6 +20,7 @@ const AnswerQuestion = () => {
       children: [{ text: "" }],
     },
   ]);
+
   const [isDescriptionEmpty, setIsDescriptionEmpty] = useState(false);
 
   const [form] = Form.useForm();
@@ -52,6 +53,7 @@ const AnswerQuestion = () => {
         answer: JSON.stringify(description),
       })
       .then(res => {
+        console.log(res);
         notification.success({
           message: "Submitted",
           description: "You answer has been submitted succesfully",
@@ -142,9 +144,9 @@ const Question = () => {
   useEffect(() => {
     instance.get(`/question?id=${id}`).then(res => {
       setItem(res.data.result.question);
-      // console.log(auth);
+      console.log(res);
     });
-  });
+  }, [id]);
 
   return (
     <>
