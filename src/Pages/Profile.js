@@ -16,6 +16,56 @@ import useAuth from "../Hooks/useAuth.js";
 import instance from "../api.js";
 import axios from "axios";
 
+const ImageUpload = () => {
+  const { auth, setAuth } = useAuth();
+
+  const uploadImage = async ({ file }) => {
+    try {
+      const res = await instance.post("/getSignedUrl", {
+        name: file.name,
+        type: file.type,
+      });
+
+      const { url } = res.data.result;
+
+      await axios.put(url, file);
+
+      const resUser = await instance.put("/user", {
+        fullname: auth.result.user.fullname,
+        email: auth.result.user.email,
+        description: auth.result.user.description,
+        image: url.slice(0, url.indexOf("?")),
+      });
+
+      setAuth(a => ({
+        ...a,
+        result: { ...a.result, user: resUser.data.result.user },
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleImageChange = e => {
+    e.preventDefault();
+
+    console.log("Handle Image Change : ", e.target.files[0]);
+    let reader = new FileReader();
+    const file = e.target.files[0];
+
+    reader.onloadend = () => {
+      uploadImage({ file });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  return (
+    <div className="image-upload">
+      <Input type="file" onChange={handleImageChange} />;
+    </div>
+  );
+};
+
 const Profile = () => {
   const { auth, setAuth } = useAuth();
   const [form] = Form.useForm();
@@ -104,46 +154,6 @@ const Profile = () => {
       });
   };
 
-  const uploadImage = async ({ file }) => {
-    try {
-      const res = await instance.post("/getSignedUrl", {
-        name: file.name,
-        type: file.type,
-      });
-
-      const { url } = res.data.result;
-
-      await axios.put(url, file);
-
-      const resUser = await instance.put("/user", {
-        fullname: auth.result.user.fullname,
-        email: auth.result.user.email,
-        description: auth.result.user.description,
-        image: url.slice(0, url.indexOf("?")),
-      });
-
-      setAuth(a => ({
-        ...a,
-        result: { ...a.result, user: resUser.data.result.user },
-      }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleImageChange = e => {
-    e.preventDefault();
-
-    console.log("Handle Image Change : ", e.target.files[0]);
-    let reader = new FileReader();
-    const file = e.target.files[0];
-
-    reader.onloadend = () => {
-      uploadImage({ file });
-    };
-    reader.readAsDataURL(file);
-  };
-
   return (
     <div className="profile-page">
       <div className="container">
@@ -219,8 +229,7 @@ const Profile = () => {
               </Form.Item>
             </Form>
           </Modal>
-
-          <Input type="file" onChange={handleImageChange} />
+          <ImageUpload />
         </div>
       </div>
     </div>
