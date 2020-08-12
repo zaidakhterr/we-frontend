@@ -66,23 +66,89 @@ const ImageUpload = () => {
   );
 };
 
-const Profile = () => {
-  const { auth, setAuth } = useAuth();
-  const [form] = Form.useForm();
-  const [form2] = Form.useForm();
-
+const ChangePassword = () => {
   const [visible, setVisible] = useState(false);
 
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
-  const showModal = () => {
-    setVisible(true);
+  const changePassword = () => {
+    console.log(oldPassword, newPassword);
+    instance
+      .put("/changePassword", {
+        old_password: oldPassword,
+        new_password: newPassword,
+      })
+      .then(() => {
+        setVisible(false);
+        setOldPassword("");
+        setNewPassword("");
+        notification.success({
+          message: "Submitted",
+          description: "Your password has been changed succesfully",
+        });
+      })
+      .catch(error => {
+        if (error.message === "Request failed with status code 400") {
+          notification.warn({
+            message: "Incorrect Password.",
+            description: `You entered an incorrect Password. Please enter the correct one and try again`,
+            duration: 5,
+          });
+        } else {
+          notification.error({
+            message: "Oops! Something went wrong",
+            description: `Something went wrong. Try again Later.`,
+            duration: 5,
+          });
+        }
+      });
   };
 
-  const handleCancel = () => {
-    setVisible(false);
-  };
+  return (
+    <div className="change-password">
+      <Button type="primary" onClick={() => setVisible(true)}>
+        Change Password
+      </Button>
+      <Modal
+        title="Change Password"
+        visible={visible}
+        onOk={changePassword}
+        okText="Save Changes"
+        onCancel={() => setVisible(false)}
+      >
+        <Form>
+          <Form.Item
+            name="old_password"
+            label="Current Password"
+            labelCol={{ span: 24 }}
+          >
+            <Input
+              type="password"
+              value={oldPassword}
+              onChange={event => setOldPassword(event.target.value)}
+            />
+          </Form.Item>
+          <Form.Item
+            name="new_password"
+            label="New Password"
+            labelCol={{ span: 24 }}
+          >
+            <Input
+              type="password"
+              value={newPassword}
+              onChange={event => setNewPassword(event.target.value)}
+            />
+          </Form.Item>
+        </Form>
+      </Modal>
+    </div>
+  );
+};
+
+const Profile = () => {
+  const { auth, setAuth } = useAuth();
+  const [form] = Form.useForm();
 
   //Make API request here
   const handleSubmit = values => {
@@ -119,39 +185,6 @@ const Profile = () => {
 
   const deleteUser = () => {
     instance.delete("/user").then(res => setAuth(null));
-  };
-
-  const changePassword = () => {
-    console.log(oldPassword, newPassword);
-    instance
-      .put("/changePassword", {
-        old_password: oldPassword,
-        new_password: newPassword,
-      })
-      .then(res => {
-        handleCancel();
-        setOldPassword("");
-        setNewPassword("");
-        notification.success({
-          message: "Submitted",
-          description: "Your password has been changed succesfully",
-        });
-      })
-      .catch((error, res) => {
-        if (error.message === "Request failed with status code 400") {
-          notification.warn({
-            message: "Incorrect Password.",
-            description: `You entered an incorrect Password. Please enter the correct one and try again`,
-            duration: 5,
-          });
-        } else {
-          notification.error({
-            message: "Oops! Something went wrong",
-            description: `Something went wrong. Try again Later.`,
-            duration: 5,
-          });
-        }
-      });
   };
 
   return (
@@ -193,42 +226,7 @@ const Profile = () => {
           >
             <Button type="danger">Delete Account</Button>
           </Popconfirm>
-
-          <Button type="primary" onClick={showModal}>
-            Change Password
-          </Button>
-          <Modal
-            title="Change Password"
-            visible={visible}
-            onOk={changePassword}
-            okText="Save Changes"
-            onCancel={handleCancel}
-          >
-            <Form form={form2}>
-              <Form.Item
-                name="old_password"
-                label="Current Password"
-                labelCol={{ span: 24 }}
-              >
-                <Input
-                  type="password"
-                  value={oldPassword}
-                  onChange={event => setOldPassword(event.target.value)}
-                />
-              </Form.Item>
-              <Form.Item
-                name="new_password"
-                label="New Password"
-                labelCol={{ span: 24 }}
-              >
-                <Input
-                  type="password"
-                  value={newPassword}
-                  onChange={event => setNewPassword(event.target.value)}
-                />
-              </Form.Item>
-            </Form>
-          </Modal>
+          <ChangePassword />
           <ImageUpload />
         </div>
       </div>
