@@ -10,7 +10,6 @@ import {
   Modal,
   notification,
 } from "antd";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 
 import useAuth from "../Hooks/useAuth.js";
 import instance from "../api.js";
@@ -61,7 +60,7 @@ const ImageUpload = () => {
 
   return (
     <div className="image-upload">
-      <Input type="file" onChange={handleImageChange} />;
+      <Input type="file" onChange={handleImageChange} />
     </div>
   );
 };
@@ -179,17 +178,26 @@ const DeleteProfile = () => {
         okType="danger primary"
         cancelText="No"
       >
-        <Button type="danger">Delete Account</Button>
+        <Button type="danger">Delete Profile</Button>
       </Popconfirm>
     </div>
   );
 };
 
-const Profile = () => {
+const UpdateProfile = () => {
   const { auth, setAuth } = useAuth();
   const [form] = Form.useForm();
 
-  //Make API request here
+  useEffect(() => {
+    form.setFieldsValue({
+      email: auth.result.user.email,
+      fullname: auth.result.user.fullname ? auth.result.user.fullname : "",
+      description: auth.result.user.description
+        ? auth.result.user.description
+        : "",
+    });
+  }, [auth, form]);
+
   const handleSubmit = values => {
     if (values) {
       instance
@@ -208,54 +216,38 @@ const Profile = () => {
     }
   };
 
-  useEffect(() => {
-    form.setFieldsValue({
-      email: auth.result.user.email,
-      fullname: auth.result.user.fullname ? auth.result.user.fullname : "",
-      description: auth.result.user.description
-        ? auth.result.user.description
-        : "",
-    });
+  return (
+    <div className="update-profile">
+      <Form form={form} onFinish={handleSubmit}>
+        <Form.Item name="fullname" label="Name" labelCol={{ span: 24 }}>
+          <Input value={auth.result.user.fullname} />
+        </Form.Item>
+        <Form.Item name="email" label="Email" labelCol={{ span: 24 }}>
+          <Input readOnly />
+          <small>Email can not be changed.</small>
+        </Form.Item>
+        <Form.Item name="description" label="Bio" labelCol={{ span: 24 }}>
+          <Input.TextArea autoSize={{ minRows: 4, maxRows: 8 }} />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Update Profile
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+};
 
-    handleSubmit();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+const Profile = () => {
   return (
     <div className="profile-page">
       <div className="container">
-        <div className="form">
-          <Typography.Title level={1}>Profile</Typography.Title>
-          <Form form={form} onFinish={handleSubmit}>
-            <Form.Item name="fullname" label="Name" labelCol={{ span: 24 }}>
-              <Input value={auth.result.user.fullname} />
-            </Form.Item>
-            <Form.Item
-              name="email"
-              label="Email"
-              labelCol={{ span: 24 }}
-              rules={[
-                {
-                  type: "email",
-                },
-              ]}
-            >
-              <Input readOnly />
-            </Form.Item>
-            <Form.Item name="description" label="Bio" labelCol={{ span: 24 }}>
-              <Input.TextArea autoSize={{ minRows: 4, maxRows: 8 }} />
-            </Form.Item>
-            <Form.Item>
-              <Button type="primary" htmlType="submit">
-                Update Profile
-              </Button>
-            </Form.Item>
-          </Form>
-          <DeleteProfile />
-          <ChangePassword />
-          <ImageUpload />
-        </div>
+        <Typography.Title level={1}>Profile</Typography.Title>
+        <UpdateProfile />
+        <ChangePassword />
+        <ImageUpload />
+        <DeleteProfile />
       </div>
     </div>
   );
