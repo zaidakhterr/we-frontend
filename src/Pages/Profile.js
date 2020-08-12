@@ -239,12 +239,25 @@ const UpdateProfile = () => {
   );
 };
 
+const ProfileImage = () => {
+  const { auth } = useAuth();
+
+  const image = auth.result.user.image ? (
+    <div className="profile-image">
+      <img src={auth.result.user.image} alt={auth.result.user.fullname} />
+    </div>
+  ) : null;
+
+  return image;
+};
+
 const Profile = () => {
   return (
     <div className="profile-page">
       <div className="container">
         <Typography.Title level={1}>Profile</Typography.Title>
         <UpdateProfile />
+        <ProfileImage />
         <ChangePassword />
         <ImageUpload />
         <DeleteProfile />
