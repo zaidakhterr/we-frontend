@@ -146,6 +146,45 @@ const ChangePassword = () => {
   );
 };
 
+const DeleteProfile = () => {
+  const { setAuth } = useAuth();
+
+  const deleteUser = () => {
+    instance
+      .delete("/user")
+      .then(() => setAuth(null))
+      .catch(error => {
+        if (error.message === "Request failed with status code 400") {
+          notification.warn({
+            message: "Incorrect Password.",
+            description: `You can't delete this user right now. Try again later.`,
+            duration: 5,
+          });
+        } else {
+          notification.error({
+            message: "Oops! Something went wrong",
+            description: `Something went wrong. Try again Later.`,
+            duration: 5,
+          });
+        }
+      });
+  };
+
+  return (
+    <div className="delete-profile">
+      <Popconfirm
+        title="Are you sure delete your account?"
+        onConfirm={deleteUser}
+        okText="Yes"
+        okType="danger primary"
+        cancelText="No"
+      >
+        <Button type="danger">Delete Account</Button>
+      </Popconfirm>
+    </div>
+  );
+};
+
 const Profile = () => {
   const { auth, setAuth } = useAuth();
   const [form] = Form.useForm();
@@ -183,10 +222,6 @@ const Profile = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const deleteUser = () => {
-    instance.delete("/user").then(res => setAuth(null));
-  };
-
   return (
     <div className="profile-page">
       <div className="container">
@@ -217,15 +252,7 @@ const Profile = () => {
               </Button>
             </Form.Item>
           </Form>
-
-          <Popconfirm
-            title="Are you sure delete your account?"
-            onConfirm={deleteUser}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button type="danger">Delete Account</Button>
-          </Popconfirm>
+          <DeleteProfile />
           <ChangePassword />
           <ImageUpload />
         </div>
