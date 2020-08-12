@@ -190,7 +190,6 @@ const UpdateProfile = () => {
 
   useEffect(() => {
     form.setFieldsValue({
-      email: auth.result.user.email,
       fullname: auth.result.user.fullname ? auth.result.user.fullname : "",
       description: auth.result.user.description
         ? auth.result.user.description
@@ -223,7 +222,7 @@ const UpdateProfile = () => {
           <Input value={auth.result.user.fullname} />
         </Form.Item>
         <Form.Item name="email" label="Email" labelCol={{ span: 24 }}>
-          <Input readOnly />
+          <Input readOnly value={auth.result.user.email} />
           <small>Email can not be changed.</small>
         </Form.Item>
         <Form.Item name="description" label="Bio" labelCol={{ span: 24 }}>
@@ -242,13 +241,15 @@ const UpdateProfile = () => {
 const ProfileImage = () => {
   const { auth } = useAuth();
 
-  const image = auth.result.user.image ? (
-    <div className="profile-image">
-      <img src={auth.result.user.image} alt={auth.result.user.fullname} />
-    </div>
-  ) : null;
+  const image = auth.result.user.image
+    ? auth.result.user.image
+    : require("./../Assets/user.jpg");
 
-  return image;
+  return (
+    <div className="profile-image">
+      <img src={image} alt={auth.result.user.fullname} />
+    </div>
+  );
 };
 
 const Profile = () => {
@@ -256,11 +257,17 @@ const Profile = () => {
     <div className="profile-page">
       <div className="container">
         <Typography.Title level={1}>Profile</Typography.Title>
-        <UpdateProfile />
-        <ProfileImage />
-        <ChangePassword />
-        <ImageUpload />
-        <DeleteProfile />
+        <div className="row">
+          <UpdateProfile />
+          <div className="col">
+            <ProfileImage />
+            <ImageUpload />
+          </div>
+        </div>
+        <div className="btn-group">
+          <ChangePassword />
+          <DeleteProfile />
+        </div>
       </div>
     </div>
   );
