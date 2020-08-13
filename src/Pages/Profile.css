@@ -33,8 +33,39 @@
 
 .btn-group {
   display: flex;
+  margin-bottom: 64px;
 }
 
 .change-password {
   margin-right: 16px;
+}
+
+@media screen and (max-width: 676px) {
+  .row {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .update-profile {
+    margin: 32px 0 0;
+  }
+
+  .update-profile form .ant-form-item button {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .btn-group {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .change-password,
+  .delete-profile {
+    margin: 0 8px;
+  }
+
+  .change-password {
+    margin-bottom: 24px;
+  }
 }
