@@ -23,7 +23,7 @@ const SignIn = () => {
         setAuth(res.data);
         form.resetFields();
       })
-      .catch((error, res) => {
+      .catch(error => {
         if (error.message === "Request failed with status code 400") {
           notification.warn({
             message: "Incorrect Email or password.",
