@@ -256,7 +256,7 @@ const Profile = () => {
   return (
     <div className="profile-page">
       <div className="container">
-        <Typography.Title level={1}>Profile</Typography.Title>
+        <h1>Profile</h1>
         <div className="row">
           <UpdateProfile />
           <div className="col">
