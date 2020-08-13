@@ -1,19 +1,80 @@
 import "./Profile.css";
 
 import React, { useEffect, useState } from "react";
-import {
-  Form,
-  Input,
-  Button,
-  Typography,
-  Popconfirm,
-  Modal,
-  notification,
-} from "antd";
+import { useHistory } from "react-router-dom";
+import { Form, Input, Button, Popconfirm, Modal, notification } from "antd";
+import axios from "axios";
 
 import useAuth from "../Hooks/useAuth.js";
 import instance from "../api.js";
-import axios from "axios";
+
+const UpdateProfile = () => {
+  const { auth, setAuth } = useAuth();
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    form.setFieldsValue({
+      fullname: auth.result.user.fullname ? auth.result.user.fullname : "",
+      description: auth.result.user.description
+        ? auth.result.user.description
+        : "",
+    });
+  }, [auth, form]);
+
+  const handleSubmit = values => {
+    if (values) {
+      instance
+        .put("/user", {
+          fullname: values.fullname,
+          email: values.email,
+          description: values.description,
+          image: auth.result.user.image,
+        })
+        .then(res =>
+          setAuth(a => ({
+            ...a,
+            result: { ...a.result, user: res.data.result.user },
+          }))
+        );
+    }
+  };
+
+  return (
+    <div className="update-profile">
+      <Form form={form} onFinish={handleSubmit}>
+        <Form.Item name="fullname" label="Name" labelCol={{ span: 24 }}>
+          <Input value={auth.result.user.fullname} />
+        </Form.Item>
+        <Form.Item name="email" label="Email" labelCol={{ span: 24 }}>
+          <Input readOnly value={auth.result.user.email} />
+          <small>Email can not be changed.</small>
+        </Form.Item>
+        <Form.Item name="description" label="Bio" labelCol={{ span: 24 }}>
+          <Input.TextArea autoSize={{ minRows: 4, maxRows: 8 }} />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Update Profile
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+};
+
+const ProfileImage = () => {
+  const { auth } = useAuth();
+
+  const image = auth.result.user.image
+    ? auth.result.user.image
+    : require("./../Assets/user.jpg");
+
+  return (
+    <div className="profile-image">
+      <img src={image} alt={auth.result.user.fullname} />
+    </div>
+  );
+};
 
 const ImageUpload = () => {
   const { auth, setAuth } = useAuth();
@@ -151,11 +212,15 @@ const ChangePassword = () => {
 
 const DeleteProfile = () => {
   const { setAuth } = useAuth();
+  const history = useHistory();
 
   const deleteUser = () => {
     instance
       .delete("/user")
-      .then(() => setAuth(null))
+      .then(() => {
+        history.push("/");
+        setAuth(null);
+      })
       .catch(error => {
         if (error.message === "Request failed with status code 400") {
           notification.warn({
@@ -184,74 +249,6 @@ const DeleteProfile = () => {
       >
         <Button type="danger">Delete Profile</Button>
       </Popconfirm>
-    </div>
-  );
-};
-
-const UpdateProfile = () => {
-  const { auth, setAuth } = useAuth();
-  const [form] = Form.useForm();
-
-  useEffect(() => {
-    form.setFieldsValue({
-      fullname: auth.result.user.fullname ? auth.result.user.fullname : "",
-      description: auth.result.user.description
-        ? auth.result.user.description
-        : "",
-    });
-  }, [auth, form]);
-
-  const handleSubmit = values => {
-    if (values) {
-      instance
-        .put("/user", {
-          fullname: values.fullname,
-          email: values.email,
-          description: values.description,
-          image: auth.result.user.image,
-        })
-        .then(res =>
-          setAuth(a => ({
-            ...a,
-            result: { ...a.result, user: res.data.result.user },
-          }))
-        );
-    }
-  };
-
-  return (
-    <div className="update-profile">
-      <Form form={form} onFinish={handleSubmit}>
-        <Form.Item name="fullname" label="Name" labelCol={{ span: 24 }}>
-          <Input value={auth.result.user.fullname} />
-        </Form.Item>
-        <Form.Item name="email" label="Email" labelCol={{ span: 24 }}>
-          <Input readOnly value={auth.result.user.email} />
-          <small>Email can not be changed.</small>
-        </Form.Item>
-        <Form.Item name="description" label="Bio" labelCol={{ span: 24 }}>
-          <Input.TextArea autoSize={{ minRows: 4, maxRows: 8 }} />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Update Profile
-          </Button>
-        </Form.Item>
-      </Form>
-    </div>
-  );
-};
-
-const ProfileImage = () => {
-  const { auth } = useAuth();
-
-  const image = auth.result.user.image
-    ? auth.result.user.image
-    : require("./../Assets/user.jpg");
-
-  return (
-    <div className="profile-image">
-      <img src={image} alt={auth.result.user.fullname} />
     </div>
   );
 };
