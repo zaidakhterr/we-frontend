@@ -3,7 +3,7 @@ import "./DisplayQuestion.css";
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Tag, Button, Row, Col, Form, notification } from "antd";
+import { Tag, Button, Form, notification } from "antd";
 import moment from "moment";
 import useAuth from "../Hooks/useAuth";
 
