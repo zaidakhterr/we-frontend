@@ -1,6 +1,7 @@
 import "./Pages.css";
 
 import React, { useState, useEffect, useCallback } from "react";
+import { Node } from "slate";
 import { Input, Button, Form, Tag, notification } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -15,12 +16,22 @@ const AskQuestion = () => {
       children: [{ text: "" }],
     },
   ]);
+  const [plainTextDescription, setPlainTextDescription] = useState("");
   const [isDescriptionEmpty, setIsDescriptionEmpty] = useState(false);
   const [inputTagField, setInputTagField] = useState("");
   const [isInputTagFieldVisible, setIsInputTagFieldVisible] = useState(false);
   const [tags, setTags] = useState([]);
 
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    let plainText = "";
+    description.forEach(node => {
+      let plainTextNode = Node.string(node);
+      plainText = plainText + " " + plainTextNode;
+    });
+    setPlainTextDescription(plainText);
+  }, [description]);
 
   const validateDescription = useCallback(() => {
     for (let node of description) {
@@ -62,6 +73,7 @@ const AskQuestion = () => {
     instance
       .post("/question", {
         question,
+        plainTextDescription,
         description: JSON.stringify(description),
         tags: JSON.stringify(tags),
       })
