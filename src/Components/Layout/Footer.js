@@ -1,8 +1,9 @@
 import "./layout.css";
-import img from "../../Assets/logo-desktop.svg";
 
 import React from "react";
 import { Row, Col } from "antd";
+
+import img from "../../Assets/logo-desktop.svg";
 
 const Footer = () => {
   return (
