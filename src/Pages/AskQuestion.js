@@ -1,7 +1,7 @@
 import "./Pages.css";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { Input, Typography, Button, Form, Tag, notification } from "antd";
+import { Input, Button, Form, Tag, notification } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 import Editor from "../Components/Editor/Editor";

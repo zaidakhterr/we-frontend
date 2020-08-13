@@ -8,6 +8,8 @@ import NotFound from "./Pages/404";
 import AskQuestion from "./Pages/AskQuestion";
 import Question from "./Pages/Question";
 
+// import AnswerQues from "./Pages/sampleCheck";
+
 const AuthApp = () => {
   return (
     <>
@@ -26,6 +28,9 @@ const AuthApp = () => {
         <Route exact path="/profile" children={<Profile />} />
 
         <Route exact path="/question/:id" children={<Question/>} />
+
+
+        {/* <Route exact path="/answer-ques" children={<AnswerQues/>} /> */}
         
         {/* This stays in the end */}
         <Route path="/*" children={<NotFound />} />
