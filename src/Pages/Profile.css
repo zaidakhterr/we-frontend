@@ -40,6 +40,31 @@
   margin-right: 16px;
 }
 
+input[type="file"]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+input[type="file"] {
+  color: transparent;
+  position: relative;
+  cursor: pointer;
+}
+
+input[type="file"]::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000000d9;
+  content: "Change Profile Image";
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+}
+
+input[type="file"].no-image::before {
+  content: "Upload Profile Image";
+}
+
 @media screen and (max-width: 676px) {
   .profile-page h1 {
     text-align: center;

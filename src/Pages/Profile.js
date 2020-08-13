@@ -60,7 +60,11 @@ const ImageUpload = () => {
 
   return (
     <div className="image-upload">
-      <Input type="file" onChange={handleImageChange} />
+      <Input
+        className={auth.result.user.image ? "" : "no-image"}
+        type="file"
+        onChange={handleImageChange}
+      />
     </div>
   );
 };
