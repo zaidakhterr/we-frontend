@@ -22,7 +22,9 @@ const AuthNavbar = () => {
         <Link to="/profile">Profile</Link>
       </Menu.Item>
       <Menu.Item>
-        <Link onMouseDown={() => setAuth(null)}>Sign Out</Link>
+        <Link to="/" onMouseDown={() => setAuth(null)}>
+          Sign Out
+        </Link>
       </Menu.Item>
     </Menu>
   );

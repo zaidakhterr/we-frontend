@@ -6,8 +6,22 @@
   margin-bottom: 16px;
   transition: all 300ms;
   color: #000;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .question-item:hover {
   border-color: #fab350;
+}
+
+.question-item .main {
+  min-width: 300px;
+  flex: 1;
+  padding-right: 16px;
+}
+
+.question-item .time {
+  margin: 0;
+  padding-top: 12px;
+  color: #9da1a6;
 }

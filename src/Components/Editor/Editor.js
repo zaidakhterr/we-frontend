@@ -235,7 +235,9 @@ const Editor = ({ value, setValue, error, readOnly = false }) => {
       <Slate
         editor={editor}
         value={value}
-        onChange={newValue => setValue(newValue)}
+        onChange={newValue => {
+          setValue(newValue);
+        }}
       >
         <div className="editor" style={{ borderColor: error ? "#ff4d4f" : "" }}>
           {!readOnly && <Toolbar />}
@@ -263,7 +265,7 @@ const Editor = ({ value, setValue, error, readOnly = false }) => {
 
 Editor.propTypes = {
   value: PropTypes.array.isRequired,
-  setValue: PropTypes.func.isRequired,
+  setValue: PropTypes.func,
 };
 
 export default Editor;

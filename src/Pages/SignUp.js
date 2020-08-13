@@ -1,7 +1,7 @@
 import "./Pages.css";
 
 import React from "react";
-import { Form, Input, Button, notification, Typography, Row, Col } from "antd";
+import { Form, Input, Button, notification, Row, Col } from "antd";
 import { Link } from "react-router-dom";
 import { SmileTwoTone } from "@ant-design/icons";
 
@@ -22,6 +22,7 @@ const SignUp = () => {
         password: values.password,
       })
       .then(res => {
+        console.log(res);
         setAuth(res.data);
         notification.open({
           message: `Welcome ${values.fullname}!`,
@@ -47,24 +48,31 @@ const SignUp = () => {
         form.resetFields();
       })
       .catch(error => {
-        notification.warn({
-          message: "Email already exists",
-          description: (
-            <p>
-              User with email <strong>{values.email}</strong> already exists.
-              Please try registering with another email
-            </p>
-          ),
-          duration: 5,
-        });
-        form.resetFields();
+        if (error.message === "Request failed with status code 400") {
+          notification.warn({
+            message: "Email already exists",
+            description: (
+              <p>
+                User with email <strong>{values.email}</strong> already exists.
+                Please try registering with another email
+              </p>
+            ),
+            duration: 5,
+          });
+        } else {
+          notification.error({
+            message: "Oops! Something went wrong",
+            description: `Something went wrong. Try again Later.`,
+            duration: 5,
+          });
+        }
       });
   };
 
   return (
     <div className="sign-up-page">
       <div className="form-container">
-        <Typography.Title level={1}>Sign Up</Typography.Title>
+        <h1 level={1}>Sign Up</h1>
         <Form
           labelCol={{ span: 24 }}
           form={form}

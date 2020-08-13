@@ -1,0 +1,100 @@
+.row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-profile {
+  flex-grow: 1;
+  margin-right: 32px;
+}
+
+.profile-image {
+  max-width: 300px;
+  margin-bottom: 32px;
+}
+
+.profile-image img {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+}
+
+.change-password button,
+.delete-profile button,
+.update-profile button {
+  min-width: 150px;
+}
+
+.btn-group {
+  display: flex;
+  margin-bottom: 64px;
+}
+
+.change-password {
+  margin-right: 16px;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+input[type="file"] {
+  color: transparent;
+  position: relative;
+  cursor: pointer;
+}
+
+input[type="file"]::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000000d9;
+  content: "Change Profile Image";
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+}
+
+input[type="file"].no-image::before {
+  content: "Upload Profile Image";
+}
+
+@media screen and (max-width: 676px) {
+  .profile-page h1 {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .row {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .update-profile {
+    margin: 32px 0 0;
+  }
+
+  .update-profile form .ant-form-item button {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .btn-group {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .change-password,
+  .delete-profile {
+    margin: 0 8px;
+  }
+
+  .change-password {
+    margin-bottom: 24px;
+  }
+}

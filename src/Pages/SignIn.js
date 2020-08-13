@@ -2,7 +2,7 @@ import "./Pages.css";
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { Form, Input, Button, notification, Typography, Row } from "antd";
+import { Form, Input, Button, notification, Row } from "antd";
 
 import useAuth from "../Hooks/useAuth";
 
@@ -24,19 +24,26 @@ const SignIn = () => {
         form.resetFields();
       })
       .catch(error => {
-        notification.warn({
-          message: "Incorrect Email or password.",
-          description: `You entered an incorrect Email or Password. Please enter the correct one and try again`,
-          duration: 5,
-        });
-        form.resetFields();
+        if (error.message === "Request failed with status code 400") {
+          notification.warn({
+            message: "Incorrect Email or password.",
+            description: `You entered an incorrect Email or Password. Please enter the correct one and try again`,
+            duration: 5,
+          });
+        } else {
+          notification.error({
+            message: "Oops! Something went wrong",
+            description: `Something went wrong. Try again Later.`,
+            duration: 5,
+          });
+        }
       });
   };
 
   return (
     <div className="sign-in-page">
       <div className="form-container">
-        <Typography.Title level={1}>Sign In</Typography.Title>
+        <h1 level={1}>Sign In</h1>
 
         <Form
           labelCol={{ span: 24 }}

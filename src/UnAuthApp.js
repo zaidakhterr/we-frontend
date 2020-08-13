@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import Question from "./Pages/Question";
 
 import Navbar from "./Components/Layout/Navbar";
 import Home from "./Pages/Home";
@@ -15,6 +16,8 @@ const UnAuthApp = () => {
         <Route exact path="/" children={<Home />} />
         <Route exact path="/sign-in" children={<SignIn />} />
         <Route exact path="/sign-up" children={<SignUp />} />
+
+        <Route exact path="/question/:id" children={<Question/>} />
 
         {/* This stays in the end */}
         <Route path="/*" children={<NotFound />} />
