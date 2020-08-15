@@ -112,8 +112,7 @@ export const SearchMobile = () => {
         closable
         onClose={() => setOpen(false)}
         visible={open}
-        height="50%"
-        style={{ minHeight: 400 }}
+        height={450}
       >
         <Input.Search
           style={{ zIndex: 2 }}
