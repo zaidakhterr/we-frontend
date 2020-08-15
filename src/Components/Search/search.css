@@ -28,7 +28,7 @@
 }
 
 .search-list {
-  max-height: 500px;
+  max-height: 400px;
   overflow-y: scroll;
   padding: 8px 16px;
 }
@@ -92,3 +92,9 @@
 }
 
 /* Mobile CSS */
+
+.search-mobile .search-list {
+  padding: 32px 16px;
+  max-height: none;
+  overflow-y: auto;
+}

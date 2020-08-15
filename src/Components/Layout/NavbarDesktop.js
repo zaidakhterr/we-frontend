@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Button, Row, Col } from "antd";
 
 import img from "../../Assets/logo-desktop.svg";
-import Search from "../Search/Search";
+import { Search } from "../Search/Search";
 
 const NavbarDesktop = () => {
   return (

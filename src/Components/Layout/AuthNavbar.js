@@ -8,7 +8,7 @@ import { useMediaQuery } from "react-responsive";
 import img from "../../Assets/logo-mobile.svg";
 import img_desktop from "../../Assets/logo-desktop.svg";
 import useAuth from "../../Hooks/useAuth";
-import Search from "../Search/Search";
+import { Search, SearchMobile } from "../Search/Search";
 
 const AuthNavbar = () => {
   const isMobile = useMediaQuery({
@@ -44,7 +44,11 @@ const AuthNavbar = () => {
             </Link>
           </Col>
           <Row gutter={16}>
-            {!isMobile && (
+            {isMobile ? (
+              <Col>
+                <SearchMobile />
+              </Col>
+            ) : (
               <Col>
                 <Search />
               </Col>
