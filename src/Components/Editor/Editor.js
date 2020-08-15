@@ -253,7 +253,7 @@ const Editor = ({ value, setValue, error, readOnly = false }) => {
             style={{ minHeight: readOnly ? "none" : "200px" }}
             renderElement={renderElement}
             renderLeaf={renderLeaf}
-            spellCheck={false}
+            spellCheck
             onKeyDown={event => {
               for (const hotkey in HOTKEYS) {
                 if (isHotkey(hotkey, event)) {
