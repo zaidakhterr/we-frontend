@@ -80,7 +80,7 @@ const AskQuestion = () => {
       .then(res => {
         notification.success({
           message: "Submitted",
-          description: "You question has been submitted succesfully",
+          description: "You question has been submitted successfully",
         });
         setDescription([
           {

@@ -56,7 +56,7 @@ const AnswerQuestion = () => {
         console.log(res);
         notification.success({
           message: "Submitted",
-          description: "You answer has been submitted succesfully",
+          description: "You answer has been submitted successfully",
         });
         setDescription([
           {

@@ -30,12 +30,23 @@ const UpdateProfile = () => {
           description: values.description,
           image: auth.result.user.image,
         })
-        .then(res =>
+        .then(res => {
           setAuth(a => ({
             ...a,
             result: { ...a.result, user: res.data.result.user },
-          }))
-        );
+          }));
+          notification.success({
+            message: "Details changed",
+            description: "Your profile details have been changed successfully",
+          });
+        })
+        .catch(error => {
+          notification.error({
+            message: "Oops! Something went wrong",
+            description: `Something went wrong. Try again Later.`,
+            duration: 5,
+          });
+        });
     }
   };
 
@@ -101,15 +112,23 @@ const ImageUpload = () => {
         ...a,
         result: { ...a.result, user: resUser.data.result.user },
       }));
+
+      notification.success({
+        message: "Photo Changed",
+        description: "Your profile photo has been changed successfully",
+      });
     } catch (error) {
-      console.log(error);
+      notification.error({
+        message: "Oops! Something went wrong",
+        description: `Something went wrong. Try again Later.`,
+        duration: 5,
+      });
     }
   };
 
   const handleImageChange = e => {
     e.preventDefault();
 
-    console.log("Handle Image Change : ", e.target.files[0]);
     let reader = new FileReader();
     const file = e.target.files[0];
 
@@ -148,8 +167,8 @@ const ChangePassword = () => {
         setOldPassword("");
         setNewPassword("");
         notification.success({
-          message: "Submitted",
-          description: "Your password has been changed succesfully",
+          message: "Password Changed",
+          description: "Your password has been changed successfully",
         });
       })
       .catch(error => {
@@ -220,6 +239,10 @@ const DeleteProfile = () => {
       .then(() => {
         history.push("/");
         setAuth(null);
+        notification.success({
+          message: "Profile deleted",
+          description: "Your profile has been deleted.",
+        });
       })
       .catch(error => {
         if (error.message === "Request failed with status code 400") {
