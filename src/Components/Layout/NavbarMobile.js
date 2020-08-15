@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import { MenuOutlined } from "@ant-design/icons";
 import { Row, Col, Menu, Dropdown, Button } from "antd";
+import { SearchMobile } from "../Search/Search";
 
 const menu = (
   <Menu>
@@ -31,11 +32,17 @@ const NavbarMobile = () => {
               <img src={img} alt="Logo" height="25px" />
             </Link>
           </Col>
-          <Col>
-            <Dropdown overlay={menu} placement="bottomRight" arrow>
-              <Button icon={<MenuOutlined style={{ color: "#ed9327" }} />} />
-            </Dropdown>
-          </Col>
+          <Row gutter={16}>
+            <Col>
+              <SearchMobile />
+            </Col>
+
+            <Col>
+              <Dropdown overlay={menu} placement="bottomRight" arrow>
+                <Button icon={<MenuOutlined style={{ color: "#ed9327" }} />} />
+              </Dropdown>
+            </Col>
+          </Row>
         </Row>
       </div>
     </header>
