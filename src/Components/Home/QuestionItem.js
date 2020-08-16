@@ -23,4 +23,5 @@ const QuestionItem = ({ id, question, tags, time }) => {
   );
 };
 
+
 export default QuestionItem;
