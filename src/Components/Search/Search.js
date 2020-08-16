@@ -30,6 +30,7 @@ export const Search = () => {
       setResults([]);
     }
   };
+
   useEffect(() => {
     search();
   }, [query]);

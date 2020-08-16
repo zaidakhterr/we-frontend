@@ -6,10 +6,10 @@
 .search-dropdown {
   border: solid 1px #d9d9d9;
   position: absolute;
-  width: 300px;
+  width: 400px;
   max-width: 100vw;
   top: calc(100% + 4px);
-  right: 32px;
+  right: 34px;
   border-radius: 3px;
   background-color: #fff;
   z-index: 1;
