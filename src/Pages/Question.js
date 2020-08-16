@@ -1,9 +1,10 @@
 import "./DisplayQuestion.css";
+import "../Components/Home/Questions.css";
 
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Tag, Button, Row, Col, Form, notification } from "antd";
+import { Tag, Button, Form, notification } from "antd";
 import moment from "moment";
 import useAuth from "../Hooks/useAuth";
 
@@ -45,6 +46,7 @@ const AnswerQuestion = () => {
   }, [isDescriptionEmpty, validateDescription]);
 
   const onSubmit = () => {
+
     if (!validateDescription()) return;
 
     instance
@@ -53,7 +55,6 @@ const AnswerQuestion = () => {
         answer: JSON.stringify(description),
       })
       .then(res => {
-        console.log(res);
         notification.success({
           message: "Submitted",
           description: "You answer has been submitted succesfully",
@@ -138,21 +139,33 @@ const DisplayQuestion = ({ item }) => {
 
 const Question = () => {
   const [item, setItem] = useState(null);
+  const [answers, setAnswers] = useState([]);
 
   const { id } = useParams();
 
   useEffect(() => {
     instance.get(`/question?id=${id}`).then(res => {
       setItem(res.data.result.question);
-      console.log(res);
+      setAnswers(res.data.result.answers);
+      console.log(res.data.result.question);
     });
   }, [id]);
 
   return (
     <>
       <DisplayQuestion item={item} />
-      <AnswerQuestion />
-    </>
+      {answers.map(ans => {
+        return (
+          <div className="ask-question">
+          <div className="container">
+            <Editor value={JSON.parse(ans.answer)} readOnly></Editor>
+            <p>Answered {moment(ans.updated_at).fromNow()}</p>
+          </div>
+          </div>
+        );
+      })}
+      <AnswerQuestion/>
+   </>   
   );
 };
 
