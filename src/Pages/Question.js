@@ -46,7 +46,6 @@ const AnswerQuestion = () => {
   }, [isDescriptionEmpty, validateDescription]);
 
   const onSubmit = () => {
-
     if (!validateDescription()) return;
 
     instance
@@ -120,7 +119,12 @@ const DisplayQuestion = ({ item }) => {
     <div className="ask-question">
       <div className="container">
         <h2>{item && item.question}</h2>
-        <p>{item && `Asked ${moment(item.updated_at).fromNow()}`}</p>
+        <p>
+          {item &&
+            `Asked by ${item.user.fullname} ${moment(
+              item.updated_at
+            ).fromNow()}`}
+        </p>
         {item && (
           <Editor value={JSON.parse(item.description)} readOnly></Editor>
         )}
@@ -155,17 +159,20 @@ const Question = () => {
     <>
       <DisplayQuestion item={item} />
       {answers.map(ans => {
-        return (
+        return ans ? (
           <div className="ask-question">
-          <div className="container">
-            <Editor value={JSON.parse(ans.answer)} readOnly></Editor>
-            <p>Answered {moment(ans.updated_at).fromNow()}</p>
+            <div className="container">
+              <Editor value={JSON.parse(ans.answer)} readOnly></Editor>
+              <p>
+                Answered by {ans.user.fullname}{" "}
+                {moment(ans.updated_at).fromNow()}
+              </p>
+            </div>
           </div>
-          </div>
-        );
+        ) : null;
       })}
-      <AnswerQuestion/>
-   </>   
+      <AnswerQuestion />
+    </>
   );
 };
 
