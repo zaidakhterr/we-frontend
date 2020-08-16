@@ -1,6 +1,6 @@
 import "./search.css";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import algoliasearch from "algoliasearch";
 import { Button, Drawer, Input } from "antd";
 import { Link } from "react-router-dom";
@@ -83,6 +83,8 @@ export const SearchMobile = () => {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
 
+  const inputRef = useRef(null);
+
   const search = () => {
     if (query) {
       setLoading(true);
@@ -114,6 +116,9 @@ export const SearchMobile = () => {
         onClose={() => setOpen(false)}
         visible={open}
         height={450}
+        afterVisibleChange={() => {
+          inputRef.current.focus();
+        }}
       >
         <Input.Search
           style={{ zIndex: 2 }}
@@ -121,6 +126,7 @@ export const SearchMobile = () => {
           onSearch={search}
           onChange={e => setQuery(e.target.value)}
           loading={loading}
+          ref={inputRef}
         />
         {results.length > 0 && (
           <div className="search-mobile">
