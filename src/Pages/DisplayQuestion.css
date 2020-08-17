@@ -1,11 +1,35 @@
-.question-display {
-  margin-top: 32px;
+.question,
+.answer,
+.add-answer {
+  /* padding: 8px; */
 }
 
-.question-display-tags {
-  padding-top: 16px;
+.question .container,
+.answer .container,
+.add-answer .container {
+  display: flex;
+  flex-direction: column;
 }
 
-h2 {
-  margin-bottom: 4px;
+.question .container {
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.question h3 {
+  margin-bottom: 0;
+}
+
+.question .editor {
+  margin-bottom: 8px;
+}
+
+.question .container::after {
+  content: " ";
+  height: 1px;
+  width: 100%;
+  background-color: #d9d9d9;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }

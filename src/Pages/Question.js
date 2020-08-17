@@ -76,7 +76,7 @@ const AnswerQuestion = () => {
   };
 
   return (
-    <div className="ask-question">
+    <div className="add-answer">
       <div className="container">
         <h2>Add Your Answer</h2>
         <Form
@@ -116,7 +116,7 @@ const AnswerQuestion = () => {
 
 const DisplayQuestion = ({ item }) => {
   return (
-    <div className="ask-question">
+    <div className="question">
       <div className="container">
         <h2>{item && item.question}</h2>
         <p>
@@ -158,9 +158,14 @@ const Question = () => {
   return (
     <>
       <DisplayQuestion item={item} />
+      <div className="container">
+        <h3>
+          {answers.length} {answers.length === 1 ? "Answer" : "Answers"}
+        </h3>
+      </div>
       {answers.map(ans => {
         return ans ? (
-          <div className="ask-question">
+          <div className="answer">
             <div className="container">
               <Editor value={JSON.parse(ans.answer)} readOnly></Editor>
               <p>
