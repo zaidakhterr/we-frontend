@@ -33,3 +33,11 @@
   bottom: 0;
   left: 0;
 }
+
+.add-answer {
+  margin-bottom: 64px;
+}
+
+.add-answer button {
+  margin-top: 12px;
+}
