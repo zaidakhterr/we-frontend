@@ -8,6 +8,7 @@ import { useMediaQuery } from "react-responsive";
 import img from "../../Assets/logo-mobile.svg";
 import img_desktop from "../../Assets/logo-desktop.svg";
 import useAuth from "../../Hooks/useAuth";
+import { Search, SearchMobile } from "../Search/Search";
 
 const AuthNavbar = () => {
   const isMobile = useMediaQuery({
@@ -42,23 +43,34 @@ const AuthNavbar = () => {
               )}
             </Link>
           </Col>
-          <Col>
-            <Dropdown overlay={menu} placement="bottomRight" arrow>
-              {auth.result.user.image !== null ? (
-                <Avatar src={auth.result.user.image} />
-              ) : (
-                <Avatar
-                  style={{
-                    backgroundColor: "#ed9327",
-                    userSelect: "none",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {`${auth.result.user.fullname.split("")[0]}`}
-                </Avatar>
-              )}
-            </Dropdown>
-          </Col>
+          <Row gutter={16}>
+            {isMobile ? (
+              <Col>
+                <SearchMobile />
+              </Col>
+            ) : (
+              <Col>
+                <Search />
+              </Col>
+            )}
+            <Col>
+              <Dropdown overlay={menu} placement="bottomRight" arrow>
+                {auth.result.user.image !== null ? (
+                  <Avatar src={auth.result.user.image} />
+                ) : (
+                  <Avatar
+                    style={{
+                      backgroundColor: "#ed9327",
+                      userSelect: "none",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {`${auth.result.user.fullname.split("")[0]}`}
+                  </Avatar>
+                )}
+              </Dropdown>
+            </Col>
+          </Row>
         </Row>
       </div>
     </header>

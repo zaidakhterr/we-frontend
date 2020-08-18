@@ -1,11 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Row, Col, Button } from "antd";
+
 import useAuth from "../Hooks/useAuth";
-
-import { /*Typography*/ Row, Col, Button } from "antd";
 import QuestionList from "../Components/Home/QuestionList";
-
-// const { Title } = Typography;
 
 const Home = () => {
   const { auth } = useAuth();

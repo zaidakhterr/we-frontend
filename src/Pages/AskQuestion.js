@@ -72,15 +72,15 @@ const AskQuestion = () => {
 
     instance
       .post("/question", {
-        question,
-        plainTextDescription,
+        question: question.trim(),
+        plainTextDescription: plainTextDescription.trim(),
         description: JSON.stringify(description),
         tags: JSON.stringify(tags),
       })
       .then(res => {
         notification.success({
           message: "Submitted",
-          description: "You question has been submitted succesfully",
+          description: "You question has been submitted successfully",
         });
         setDescription([
           {

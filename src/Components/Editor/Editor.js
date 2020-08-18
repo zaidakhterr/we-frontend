@@ -239,14 +239,21 @@ const Editor = ({ value, setValue, error, readOnly = false }) => {
           setValue(newValue);
         }}
       >
-        <div className="editor" style={{ borderColor: error ? "#ff4d4f" : "" }}>
+        <div
+          className="editor"
+          style={{
+            borderColor: error ? "#ff4d4f" : "",
+            minHeight: readOnly ? "none" : "30px",
+          }}
+        >
           {!readOnly && <Toolbar />}
           <Editable
             readOnly={readOnly}
             className="editable"
+            style={{ minHeight: readOnly ? "none" : "200px" }}
             renderElement={renderElement}
             renderLeaf={renderLeaf}
-            spellCheck={false}
+            spellCheck
             onKeyDown={event => {
               for (const hotkey in HOTKEYS) {
                 if (isHotkey(hotkey, event)) {

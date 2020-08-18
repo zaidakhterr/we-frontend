@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Button, Row, Col } from "antd";
 
 import img from "../../Assets/logo-desktop.svg";
+import { Search } from "../Search/Search";
 
 const NavbarDesktop = () => {
   return (
@@ -17,6 +18,9 @@ const NavbarDesktop = () => {
             </Link>
           </Col>
           <Row gutter={16}>
+            <Col>
+              <Search />
+            </Col>
             <Col>
               <Link to="/sign-in">
                 <Button>Sign In</Button>

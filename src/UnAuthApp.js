@@ -1,12 +1,13 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Question from "./Pages/Question";
 
 import Navbar from "./Components/Layout/Navbar";
-import Home from "./Pages/Home";
-import NotFound from "./Pages/404";
-import SignIn from "./Pages/SignIn";
-import SignUp from "./Pages/SignUp";
+
+const Home = React.lazy(() => import("./Pages/Home"));
+const NotFound = React.lazy(() => import("./Pages/404"));
+const SignIn = React.lazy(() => import("./Pages/SignIn"));
+const SignUp = React.lazy(() => import("./Pages/SignUp"));
+const Question = React.lazy(() => import("./Pages/Question"));
 
 const UnAuthApp = () => {
   return (
@@ -17,7 +18,7 @@ const UnAuthApp = () => {
         <Route exact path="/sign-in" children={<SignIn />} />
         <Route exact path="/sign-up" children={<SignUp />} />
 
-        <Route exact path="/question/:id" children={<Question/>} />
+        <Route exact path="/question/:id" children={<Question />} />
 
         {/* This stays in the end */}
         <Route path="/*" children={<NotFound />} />

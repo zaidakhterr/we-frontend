@@ -1,12 +1,13 @@
 import "./DisplayQuestion.css";
+import "../Components/Home/Questions.css";
 
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Tag, Button, Row, Col, Form, notification } from "antd";
+import { Tag, Button, Form, notification } from "antd";
 import moment from "moment";
-import useAuth from "../Hooks/useAuth";
 
+import useAuth from "../Hooks/useAuth";
 import instance from "../api";
 import Editor from "../Components/Editor/Editor";
 
@@ -53,10 +54,9 @@ const AnswerQuestion = () => {
         answer: JSON.stringify(description),
       })
       .then(res => {
-        console.log(res);
         notification.success({
           message: "Submitted",
-          description: "You answer has been submitted succesfully",
+          description: "You answer has been submitted successfully",
         });
         setDescription([
           {
@@ -76,7 +76,7 @@ const AnswerQuestion = () => {
   };
 
   return (
-    <div className="ask-question">
+    <div className="add-answer">
       <div className="container">
         <h2>Add Your Answer</h2>
         <Form
@@ -116,10 +116,15 @@ const AnswerQuestion = () => {
 
 const DisplayQuestion = ({ item }) => {
   return (
-    <div className="ask-question">
+    <div className="question">
       <div className="container">
         <h2>{item && item.question}</h2>
-        <p>{item && `Asked ${moment(item.updated_at).fromNow()}`}</p>
+        <p>
+          {item &&
+            `Asked by ${item.user.fullname} ${moment(
+              item.updated_at
+            ).fromNow()}`}
+        </p>
         {item && (
           <Editor value={JSON.parse(item.description)} readOnly></Editor>
         )}
@@ -138,19 +143,39 @@ const DisplayQuestion = ({ item }) => {
 
 const Question = () => {
   const [item, setItem] = useState(null);
+  const [answers, setAnswers] = useState([]);
 
   const { id } = useParams();
 
   useEffect(() => {
     instance.get(`/question?id=${id}`).then(res => {
       setItem(res.data.result.question);
-      console.log(res);
+      setAnswers(res.data.result.answers);
+      console.log(res.data.result.question);
     });
   }, [id]);
 
   return (
     <>
       <DisplayQuestion item={item} />
+      <div className="container">
+        <h3>
+          {answers.length} {answers.length === 1 ? "Answer" : "Answers"}
+        </h3>
+      </div>
+      {answers.map(ans => {
+        return ans ? (
+          <div className="answer">
+            <div className="container">
+              <Editor value={JSON.parse(ans.answer)} readOnly></Editor>
+              <p>
+                Answered by {ans.user.fullname}{" "}
+                {moment(ans.updated_at).fromNow()}
+              </p>
+            </div>
+          </div>
+        ) : null;
+      })}
       <AnswerQuestion />
     </>
   );
