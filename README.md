@@ -14,6 +14,7 @@ REST API : [we-backend](https://github.com/zaidakhterr/we-backend)
 - NodeJS
 - AWS
 - MySQL
+- JWT Authentication
 - Algolia Search
 
 ## Members:
