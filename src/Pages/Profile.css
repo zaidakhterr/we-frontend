@@ -48,6 +48,11 @@ input[type="file"] {
   position: relative;
   cursor: pointer;
 }
+/* custom{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+} */
 
 input[type="file"]::before {
   position: absolute;
